@@ -31,6 +31,22 @@ const BudgetPieChart = () => {
             <Cell key={`cell-${index}`} fill={entry.color} />
           ))}
         </Pie>
+        <Pie
+          data={mockBudgets}
+          dataKey="value"
+          nameKey="name"
+          cx="50%"
+          cy="50%"
+          innerRadius={80}
+          outerRadius={100}
+          startAngle={90}
+          endAngle={-270}
+          stroke="none"
+        >
+          {mockBudgets.map((entry, index) => (
+            <Cell key={`inner-${index}`} fill={entry.color} fillOpacity={0.7} />
+          ))}
+        </Pie>
         <Tooltip />
       </PieChart>
 
