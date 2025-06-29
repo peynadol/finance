@@ -30,7 +30,7 @@ export const columns: ColumnDef<Transaction>[] = [
       return (
         <div className="flex items-center gap-2">
           <Image
-            src={avatar}
+            src={null}
             alt={name}
             width={32}
             height={32}
