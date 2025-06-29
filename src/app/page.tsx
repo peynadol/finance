@@ -1,9 +1,9 @@
-import OverviewTransactionContainer from "./components/overview-transaction-container";
+import OverviewRecurringBillContainer from "./components/overview-recurring-bill-container";
 
 export default function Home() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
-      <OverviewTransactionContainer />
+      <OverviewRecurringBillContainer />
     </div>
   );
 }

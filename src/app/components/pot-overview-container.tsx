@@ -1,4 +1,4 @@
-import PotSummaryCard from "./overview-summary-card";
+import OverviewSummaryCard from "./overview-summary-card";
 import PotTotalCard from "./pot-total-card";
 import { ChevronRight } from "lucide-react";
 const PotOverviewContainer = () => {
@@ -14,25 +14,10 @@ const PotOverviewContainer = () => {
         <PotTotalCard total={850} />
 
         <div className="grid grid-cols-2 gap-x-4 gap-y-6">
-          <PotSummaryCard
-            potName="Emergency Fund"
-            potAmount={500}
-            potColour="bg-blue-500"
-          />
-          <PotSummaryCard
-            potName="Emergency Fund"
-            potAmount={500}
-            potColour="bg-blue-500"
-          />
-          <PotSummaryCard
-            potName="Emergency Fund"
-            potAmount={500}
-            potColour="bg-blue-500"
-          />
-          <PotSummaryCard
-            potName="Emergency Fund"
-            potAmount={500}
-            potColour="bg-blue-500"
+          <OverviewSummaryCard
+            name="Emergency Fund"
+            amount={500}
+            colour="bg-blue-500"
           />
         </div>
       </div>
