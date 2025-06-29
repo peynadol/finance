@@ -24,6 +24,7 @@ export const columns: ColumnDef<Transaction>[] = [
         Recipient / Sender
       </div>
     ),
+    enableSorting: true,
     cell: ({ row }) => {
       const name: string = row.getValue("name");
       const avatar: string = row.getValue("avatar");
@@ -46,6 +47,7 @@ export const columns: ColumnDef<Transaction>[] = [
     header: () => (
       <div className="text-left text-preset-5 text-grey-500">Category</div>
     ),
+    enableSorting: true,
     cell: ({ row }) => {
       const category: string = row.getValue("category");
       return (
@@ -60,6 +62,12 @@ export const columns: ColumnDef<Transaction>[] = [
     header: () => (
       <div className="text-left text-preset-5 text-grey-500">Date</div>
     ),
+    enableSorting: true,
+    sortingFn: (rowA, rowB) => {
+      const dateA = new Date(rowA.getValue("date"));
+      const dateB = new Date(rowB.getValue("date"));
+      return dateA.getTime() - dateB.getTime();
+    },
     cell: ({ row }) => {
       const date: string = row.getValue("date");
       return (
@@ -74,6 +82,7 @@ export const columns: ColumnDef<Transaction>[] = [
     header: () => (
       <div className="text-right text-preset-5 text-grey-500">Amount</div>
     ),
+    enableSorting: true,
     cell: ({ row }) => {
       const amount: number = row.getValue("amount");
       return (

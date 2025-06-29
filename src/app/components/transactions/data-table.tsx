@@ -49,6 +49,7 @@ export function DataTable<TData, TValue>({
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    onSortingChange: setSorting,
     state: {
       columnFilters,
       sorting,
@@ -67,6 +68,7 @@ export function DataTable<TData, TValue>({
           className="max-w-sm"
         />
 
+        {/* Category Filter */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline">
@@ -90,6 +92,46 @@ export function DataTable<TData, TValue>({
                 </DropdownMenuItem>
               )
             )}
+          </DropdownMenuContent>
+        </DropdownMenu>
+        {/* Sort Options */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline">
+              Sort by <ChevronDown className="ml-2 h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start">
+            <DropdownMenuItem
+              onSelect={() => table.setSorting([{ id: "date", desc: true }])}
+            >
+              Latest
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onSelect={() => table.setSorting([{ id: "date", desc: false }])}
+            >
+              Oldest
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onSelect={() => table.setSorting([{ id: "name", desc: false }])}
+            >
+              A to Z
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onSelect={() => table.setSorting([{ id: "name", desc: true }])}
+            >
+              Z to A
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onSelect={() => table.setSorting([{ id: "amount", desc: true }])}
+            >
+              Highest
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onSelect={() => table.setSorting([{ id: "amount", desc: false }])}
+            >
+              Lowest
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
