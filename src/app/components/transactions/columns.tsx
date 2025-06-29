@@ -4,7 +4,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import Image from "next/image";
 import { format } from "date-fns";
 
-//TODO: In amount, conditionally render colour based on positive or negative value
+//TODO: maybe add a check mark to the dropdown category filter to indicate the selected category
 
 export type Transaction = {
   id: string;
