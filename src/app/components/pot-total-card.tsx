@@ -9,11 +9,7 @@ type PotTotalCardProps = {
 const PotTotalCard = ({ total, className }: PotTotalCardProps) => {
   return (
     <div
-      className={clsx(
-        "bg-beige-100 rounded-lg min-h-[112px] flex items-center p-4",
-        className,
-        "min-w-[247px]"
-      )}
+      className={clsx("bg-beige-100 rounded  flex items-center p-4", className)}
     >
       <div className="flex items-center gap-4">
         <PiggyBank size={36} className="text-grey-500" />

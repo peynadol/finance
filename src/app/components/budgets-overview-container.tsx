@@ -4,7 +4,8 @@ import OverviewSummaryCard from "./overview-summary-card";
 
 const BudgetsOverviewContainer = () => {
   return (
-    <div className="bg-white rounded-lg p-8">
+    <div className="bg-white rounded-lg p-8 flex flex-col h-full">
+      {/* Header */}
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-preset-2 text-grey-900">Budgets</h2>
         <p className="text-preset-4 text-grey-500">
@@ -12,11 +13,14 @@ const BudgetsOverviewContainer = () => {
         </p>
       </div>
 
-      <div className="flex items-center gap-10 my-14 px-4">
-        <div className="w-[250px] h-[250px] flex items-center justify-center">
+      {/* Content */}
+      <div className="flex flex-1 items-center gap-10 px-4">
+        {/* Pie Chart Section */}
+        <div className="flex items-center justify-center">
           <BudgetPieChart />
         </div>
 
+        {/* Budget Items List */}
         <div className="space-y-4">
           <OverviewSummaryCard
             name="Entertainment"

@@ -19,6 +19,21 @@ const PotOverviewContainer = () => {
             amount={500}
             colour="bg-blue-500"
           />
+          <OverviewSummaryCard
+            name="Emergency Fund"
+            amount={500}
+            colour="bg-blue-500"
+          />
+          <OverviewSummaryCard
+            name="Emergency Fund"
+            amount={500}
+            colour="bg-blue-500"
+          />
+          <OverviewSummaryCard
+            name="Emergency Fund"
+            amount={500}
+            colour="bg-blue-500"
+          />
         </div>
       </div>
     </div>

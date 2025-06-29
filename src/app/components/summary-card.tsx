@@ -16,7 +16,13 @@ const SummaryCard = ({ title, amount }: SummaryCardProps) => {
       )}
     >
       <h2 className="text-sm font-medium">{title}</h2>
-      <p className="text-2xl font-bold">£{amount.toLocaleString()}</p>
+      <p className="text-2xl font-bold">
+        £
+        {amount.toLocaleString(undefined, {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })}
+      </p>
     </div>
   );
 };
