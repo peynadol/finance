@@ -1,5 +1,5 @@
 "use client";
-
+//TODO: Table size is currently set to 1 for pagination testing purposes.
 import {
   ColumnDef,
   ColumnFiltersState,
