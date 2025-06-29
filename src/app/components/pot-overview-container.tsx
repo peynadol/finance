@@ -1,4 +1,4 @@
-import PotSummaryCard from "./pot-summary-card";
+import PotSummaryCard from "./overview-summary-card";
 import PotTotalCard from "./pot-total-card";
 import { ChevronRight } from "lucide-react";
 const PotOverviewContainer = () => {
