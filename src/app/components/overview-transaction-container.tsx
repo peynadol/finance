@@ -1,7 +1,10 @@
 import { ChevronRight } from "lucide-react";
 import OverviewTransactionCard from "./overview-transaction-card";
 import Link from "next/link";
+import { useStore } from "@/lib/useStore";
 const OverviewTransactionContainer = () => {
+  const transactions = useStore((state) => state.transactions);
+  console.log("Transactions:", transactions);
   return (
     <div className="bg-white rounded-lg p-8 ">
       <div className="flex justify-between items-center mb-4">
@@ -15,31 +18,15 @@ const OverviewTransactionContainer = () => {
       </div>
 
       <div className="flex items-center  flex-col gap-4">
-        <OverviewTransactionCard
-          name="Emma Richardson"
-          amount={100}
-          date="19 Aug 2024"
-        />
-        <OverviewTransactionCard
-          name="Emma Richardson"
-          amount={100}
-          date="19 Aug 2024"
-        />
-        <OverviewTransactionCard
-          name="Emma Richardson"
-          amount={100}
-          date="19 Aug 2024"
-        />
-        <OverviewTransactionCard
-          name="Emma Richardson"
-          amount={100}
-          date="19 Aug 2024"
-        />
-        <OverviewTransactionCard
-          name="Emma Richardson"
-          amount={100}
-          date="19 Aug 2024"
-        />
+        {transactions.slice(0, 5).map((transaction, index) => (
+          <OverviewTransactionCard
+            key={index} // not ideal, but okay for now
+            name={transaction.name}
+            amount={transaction.amount}
+            date={transaction.date}
+            avatarPath={transaction.avatar.replace(/^\.\/assets/, "")}
+          />
+        ))}
       </div>
     </div>
   );
