@@ -7,13 +7,13 @@ type OverviewTransactionCardProps = {
   name: string;
   amount: number;
   date: string;
-  avatarPath?: string; // Optional avatar URL
+  avatarPath?: string; // optional avatar URL
 };
 const OverviewTransactionCard = ({
   name,
   amount,
   date,
-  avatarPath = "", // Default to empty string if no avatar URL is provided
+  avatarPath = "", // default to empty string if no avatar URL is provided
 }: OverviewTransactionCardProps) => {
   const formattedDate = format(new Date(date), "dd MMM yyyy");
   const isPositive = amount >= 0;

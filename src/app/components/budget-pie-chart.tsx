@@ -1,54 +1,52 @@
 "use client";
-//TODO: seem to have developed a bug with the tooltip not working
 
 import { Cell, Pie, PieChart, Tooltip } from "recharts";
 
-const mockBudgets = [
-  { name: "Entertainment", value: 50, color: "#2A8376" },
-  { name: "Bills", value: 750, color: "#85D1E4" },
-  { name: "Dining Out", value: 75, color: "#F4CBA4" },
-  { name: "Personal Care", value: 100, color: "#544C67" },
-];
+type BudgetPieChartProps = {
+  data: {
+    name: string;
+    value: number;
+    color: string;
+  }[];
+  totalLimit: number;
+};
 
-const total = mockBudgets.reduce((acc, cur) => acc + cur.value, 0);
-const spent = 338;
+const BudgetPieChart = ({ data, totalLimit }: BudgetPieChartProps) => {
+  const spent = data.reduce((sum, item) => sum + item.value, 0);
 
-const BudgetPieChart = () => {
   return (
     <div className="relative w-[220px] h-[220px]">
       <PieChart width={220} height={220}>
         <Pie
-          id="outer-pie"
-          data={mockBudgets}
+          data={data}
           dataKey="value"
           nameKey="name"
           cx="50%"
           cy="50%"
-          innerRadius={70}
+          innerRadius={80}
           outerRadius={100}
           stroke="none"
           startAngle={90}
           endAngle={-270}
         >
-          {mockBudgets.map((entry, index) => (
+          {data.map((entry, index) => (
             <Cell key={`outer-${index}`} fill={entry.color} />
           ))}
         </Pie>
 
         <Pie
-          id="inner-pie"
-          data={mockBudgets}
+          data={data}
           dataKey="value"
           nameKey="name"
           cx="50%"
           cy="50%"
-          innerRadius={55}
-          outerRadius={70}
+          innerRadius={70}
+          outerRadius={80}
           stroke="none"
           startAngle={90}
           endAngle={-270}
         >
-          {mockBudgets.map((entry, index) => (
+          {data.map((entry, index) => (
             <Cell key={`inner-${index}`} fill={entry.color} fillOpacity={0.7} />
           ))}
         </Pie>
@@ -56,9 +54,11 @@ const BudgetPieChart = () => {
         <Tooltip />
       </PieChart>
 
-      <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-        <p className="text-preset-1 text-grey-900">${spent}</p>
-        <p className="text-preset-4 text-grey-500">of ${total} limit</p>
+      <div className="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none">
+        <p className="text-preset-1 text-grey-900">£{Math.round(spent)}</p>
+        <p className="text-preset-4 text-grey-500">
+          of £{Math.round(totalLimit)} limit
+        </p>
       </div>
     </div>
   );

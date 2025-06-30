@@ -10,6 +10,7 @@ type StoreState = {
   transactions: Transaction[];
   budgets: Budget[];
   pots: Pot[];
+  recurringBills: Transaction[];
 };
 
 export const useStore = create<StoreState>(() => ({
@@ -17,4 +18,7 @@ export const useStore = create<StoreState>(() => ({
   transactions: data.transactions,
   budgets: data.budgets,
   pots: data.pots,
+  recurringBills: data.transactions.filter(
+    (transaction) => transaction.recurring
+  ),
 }));
