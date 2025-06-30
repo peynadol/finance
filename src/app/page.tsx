@@ -15,7 +15,6 @@ export default function Home() {
     { id: "income", label: "Income", amount: balances.income },
     { id: "expense", label: "Expenses", amount: balances.expenses },
   ];
-  console.log("Balances:", balances);
   return (
     <div className="mx-auto max-w-screen-xl px-6 space-y-6 ">
       <h1 className="text-preset-1">Overview</h1>
