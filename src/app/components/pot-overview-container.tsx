@@ -1,6 +1,7 @@
 import { ChevronRight } from "lucide-react";
 import OverviewSummaryCard from "./overview-summary-card";
 import PotTotalCard from "./pot-total-card";
+import Link from "next/link";
 
 const PotOverviewContainer = () => {
   return (
@@ -8,9 +9,12 @@ const PotOverviewContainer = () => {
       {/* Header */}
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-preset-2 text-grey-900">Pots</h2>
-        <p className="text-preset-4 text-grey-500">
-          See Details <ChevronRight className="inline ml-1" size={16} />
-        </p>
+        <Link
+          href="/pots"
+          className="text-preset-4 text-grey-500 hover:underline"
+        >
+          See Details <ChevronRight className="inline ml-1 " size={16} />
+        </Link>
       </div>
 
       {/* Content */}

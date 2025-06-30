@@ -1,6 +1,7 @@
 import { ChevronRight } from "lucide-react";
 import BudgetPieChart from "./budget-pie-chart";
 import OverviewSummaryCard from "./overview-summary-card";
+import Link from "next/link";
 
 type BudgetsOverviewContainerProps = {
   variant?: "home" | "budgets";
@@ -19,9 +20,12 @@ const BudgetsOverviewContainer = ({
           {isHome ? "Budgets" : ""}
         </h2>
         {isHome && (
-          <p className="text-preset-4 text-grey-500">
+          <Link
+            href="/budgets"
+            className="text-preset-4 text-grey-500 hover:underline"
+          >
             See Details <ChevronRight className="inline ml-1" size={16} />
-          </p>
+          </Link>
         )}
       </div>
 

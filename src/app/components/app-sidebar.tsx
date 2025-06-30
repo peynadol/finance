@@ -98,7 +98,7 @@ export function AppSidebar() {
       {!open && (
         <button
           onClick={() => setOpen(true)}
-          className="fixed top-6 left-4 z-50 rounded-full bg-grey-900 border border-gray-200 p-3 shadow-lg transition-all duration-200 cursor-pointer"
+          className="fixed bottom-6 left-4 z-50 rounded-full bg-grey-900 border border-gray-200 p-3 shadow-lg transition-all duration-200 cursor-pointer"
           aria-label="Expand sidebar"
         >
           <ChevronRight className=" text-white" />

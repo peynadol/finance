@@ -1,14 +1,18 @@
 import { ChevronRight } from "lucide-react";
 import OverviewRecurringBillCard from "./overview-recurring-bill-card";
+import Link from "next/link";
 
 const OverviewRecurringBillContainer = () => {
   return (
     <div className="bg-white rounded-lg p-8 min-w-[400px] ">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-preset-2">Recurring Bills</h2>
-        <p className="text-preset-4 text-grey-500">
+        <Link
+          href="/recurring-bills"
+          className="text-preset-4 text-grey-500 hover:underline"
+        >
           See Details <ChevronRight className="inline ml-1" size={16} />
-        </p>
+        </Link>
       </div>
 
       <div className="flex items-center  flex-col gap-4">
