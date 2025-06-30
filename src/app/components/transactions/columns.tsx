@@ -7,7 +7,6 @@ import { format } from "date-fns";
 //TODO: maybe add a check mark to the dropdown category filter to indicate the selected category
 
 export type Transaction = {
-  id: string;
   name: string;
   avatar: string;
   category: string;
@@ -18,30 +17,36 @@ export type Transaction = {
 
 export const columns: ColumnDef<Transaction>[] = [
   {
-    accessorKey: "name",
+    id: "recipient",
+    accessorFn: (row) => row.name,
     header: () => (
       <div className="text-left text-preset-5 text-grey-500">
         Recipient / Sender
       </div>
     ),
-    enableSorting: true,
     cell: ({ row }) => {
-      const name: string = row.getValue("name");
-      const avatar: string = row.getValue("avatar");
+      const { name, avatar } = row.original;
+
       return (
         <div className="flex items-center gap-2">
-          <Image
-            src={null}
-            alt={name}
-            width={32}
-            height={32}
-            className="rounded-full"
-          />
+          {avatar ? (
+            <Image
+              src={avatar.replace(/^\.\/assets/, "")}
+              alt={name}
+              width={32}
+              height={32}
+              className="rounded-full object-cover"
+            />
+          ) : (
+            <div className="w-8 h-8 rounded-full bg-grey-200" />
+          )}
           <span className="text-preset-4-bold text-grey-900">{name}</span>
         </div>
       );
     },
+    enableSorting: true,
   },
+
   {
     accessorKey: "category",
     header: () => (

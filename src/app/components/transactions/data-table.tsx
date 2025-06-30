@@ -70,9 +70,11 @@ export function DataTable<TData, TValue>({
         <div>
           <Input
             placeholder="Search recipient or sender..."
-            value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+            value={
+              (table.getColumn("recipient")?.getFilterValue() as string) ?? ""
+            }
             onChange={(event) =>
-              table.getColumn("name")?.setFilterValue(event.target.value)
+              table.getColumn("recipient")?.setFilterValue(event.target.value)
             }
             className="max-w-sm"
           />
