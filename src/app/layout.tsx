@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Public_Sans } from "next/font/google";
 import "./globals.css";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "./components/app-sidebar";
 
 const publicSans = Public_Sans({
@@ -24,10 +24,7 @@ export default function RootLayout({
       <body className={`${publicSans.variable} antialiased`}>
         <SidebarProvider>
           <AppSidebar />
-          <main>
-            <SidebarTrigger />
-            {children}
-          </main>
+          <main>{children}</main>
         </SidebarProvider>
       </body>
     </html>

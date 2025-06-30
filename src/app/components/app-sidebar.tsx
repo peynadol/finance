@@ -1,15 +1,18 @@
+"use client";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarTrigger,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import { CustomTrigger } from "./custom-trigger";
 import {
@@ -18,62 +21,89 @@ import {
   ChartPie,
   Wallet,
   ReceiptText,
+  ChevronRight,
 } from "lucide-react";
 
 const items = [
   {
     title: "Home",
-    url: "#",
+    url: "/",
     icon: <House />,
   },
   {
     title: "Transactions",
-    url: "#",
+    url: "/transactions",
     icon: <ArrowUpDown />,
   },
   {
     title: "Budgets",
-    url: "#",
+    url: "/budgets",
     icon: <ChartPie />,
   },
   {
     title: "Pots",
-    url: "#",
+    url: "/pots",
     icon: <Wallet />,
   },
   {
     title: "Recurring Bills",
-    url: "#",
+    url: "/recurring-bills",
     icon: <ReceiptText />,
   },
 ];
 
-//TODO: Add logo in header
 export function AppSidebar() {
+  const pathname = usePathname();
+  const { open, setOpen } = useSidebar();
+
   return (
-    <Sidebar>
-      <SidebarHeader>finance</SidebarHeader>
-      <SidebarContent>
-        <SidebarGroup className="mt-6">
-          <SidebarGroupContent>
-            <SidebarMenu className="space-y-4">
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild className="text-preset-3">
-                    <a href={item.url} className="py-6">
-                      {item.icon}
-                      <span className="ml-2">{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-      </SidebarContent>
-      <SidebarFooter>
-        <CustomTrigger />
-      </SidebarFooter>
-    </Sidebar>
+    <>
+      <Sidebar>
+        <SidebarHeader>finance</SidebarHeader>
+        <SidebarContent>
+          <SidebarGroup className="mt-6">
+            <SidebarGroupContent>
+              <SidebarMenu className="space-y-4">
+                {items.map((item) => {
+                  const isActive = pathname === item.url;
+                  return (
+                    <SidebarMenuItem key={item.title}>
+                      <SidebarMenuButton asChild>
+                        <Link
+                          href={item.url}
+                          className={cn(
+                            "py-6 flex items-center text-[16px] leading-[150%] font-bold",
+                            isActive
+                              ? "bg-beige-100 text-grey-900"
+                              : "text-grey-300"
+                          )}
+                        >
+                          {item.icon}
+                          <span className="ml-2">{item.title}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  );
+                })}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        </SidebarContent>
+        <SidebarFooter className="mb-4">
+          <CustomTrigger />
+        </SidebarFooter>
+      </Sidebar>
+
+      {/* Floating restore arrow when collapsed - positioned outside the Sidebar */}
+      {!open && (
+        <button
+          onClick={() => setOpen(true)}
+          className="fixed top-6 left-4 z-50 rounded-full bg-grey-900 border border-gray-200 p-3 shadow-lg transition-all duration-200 cursor-pointer"
+          aria-label="Expand sidebar"
+        >
+          <ChevronRight className=" text-white" />
+        </button>
+      )}
+    </>
   );
 }
