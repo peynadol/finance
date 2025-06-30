@@ -1,12 +1,12 @@
 import clsx from "clsx";
 
 type SummaryCardProps = {
-  title: string;
+  label: string;
   amount: number;
 };
 
-const SummaryCard = ({ title, amount }: SummaryCardProps) => {
-  const isBalanceCard = title.toLowerCase() === "current balance";
+const SummaryCard = ({ label, amount }: SummaryCardProps) => {
+  const isBalanceCard = label.toLowerCase() === "current balance";
 
   return (
     <div
@@ -15,7 +15,7 @@ const SummaryCard = ({ title, amount }: SummaryCardProps) => {
         isBalanceCard ? "bg-grey-900 text-white" : "bg-white text-grey-900"
       )}
     >
-      <h2 className="text-sm font-medium">{title}</h2>
+      <h2 className="text-sm font-medium">{label}</h2>
       <p className="text-2xl font-bold">
         £
         {amount.toLocaleString(undefined, {

@@ -1,21 +1,30 @@
+"use client";
 import BudgetsOverviewContainer from "./components/budgets-overview-container";
 import OverviewRecurringBillContainer from "./components/overview-recurring-bill-container";
 import OverviewTransactionContainer from "./components/overview-transaction-container";
 import PotOverviewContainer from "./components/pot-overview-container";
 import SummaryCard from "./components/summary-card";
+import { useStore } from "@/lib/useStore";
 //TODO: the budget component needs to be full height on dashboard, but not on budgets page
 //TODO: it also needs to change orientation on the budgets page
 
 export default function Home() {
+  const balances = useStore((state) => state.balance);
+  const summaryItems = [
+    { id: "current", label: "Current Balance", amount: balances.current },
+    { id: "income", label: "Income", amount: balances.income },
+    { id: "expense", label: "Expenses", amount: balances.expenses },
+  ];
+  console.log("Balances:", balances);
   return (
     <div className="mx-auto max-w-screen-xl px-6 space-y-6 ">
       <h1 className="text-preset-1">Overview</h1>
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <SummaryCard title="Current Balance" amount={4836.0} />
-        <SummaryCard title="Income" amount={3814.25} />
-        <SummaryCard title="Expenses" amount={1700.5} />
+        {summaryItems.map((item) => (
+          <SummaryCard key={item.id} label={item.label} amount={item.amount} />
+        ))}
       </div>
 
       {/* Lower Grid */}
