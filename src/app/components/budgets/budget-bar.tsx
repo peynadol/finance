@@ -1,19 +1,26 @@
 "use client";
-//TODO: dynamically change the progress bar value and colour
 import { Progress } from "@/components/ui/progress";
 import { useEffect, useState } from "react";
-const BudgetBar = () => {
-  const [progress, setProgress] = useState(13);
+type BudgetBarProps = {
+  colour: string;
+  spent: number;
+  maximum: number;
+};
+const BudgetBar = ({ colour, spent, maximum }: BudgetBarProps) => {
+  const [progress, setProgress] = useState(0);
+  console.log("BudgetBar - spent:", spent, "maximum:", maximum);
+  const newProgress = Math.min(Math.max((spent / maximum) * 100, 0), 100);
 
   useEffect(() => {
-    const timer = setTimeout(() => setProgress(66), 500);
+    const timer = setTimeout(() => setProgress(newProgress), 500);
     return () => clearTimeout(timer);
-  }, []);
+  }, [newProgress]);
   return (
     <div className="w-[500px]">
       <Progress
         value={progress}
-        className="w-full h-6 bg-beige-100 [&>*]:bg-green" // that strange ampersand syntax is targeting the child via tailwind
+        colour={colour}
+        className="w-full h-6 bg-beige-100"
       />
     </div>
   );

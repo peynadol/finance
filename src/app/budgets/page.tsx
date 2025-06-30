@@ -1,25 +1,56 @@
+"use client";
+
 import { AppButton } from "../components/app-button";
 import BudgetsOverviewContainer from "../components/budgets-overview-container";
 import BudgetPageOverviewContainer from "../components/budgets/budget-page-overview-container";
-//TODO: make the budgets pie chart a bit more modular
-//TODO: render it differently here than in the overview page
-//TODO: the spending summary goes underneath the pie chart
-//TODO: remove the see details link when its on this page
-//TODO: fix the styling of this page
+import { useStore } from "@/lib/useStore";
+
 const BudgetsPage = () => {
+  const budgets = useStore((state) => state.budgets);
+  const transactions = useStore((state) => state.transactions);
+
   return (
-    <div className=" w-full max-w-screen-xl px-6 py-8 mx-auto">
+    <div className="w-full max-w-screen-xl px-6 py-8 mx-auto">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-preset-1">Budgets</h2>
         <AppButton>+ Add New Budget</AppButton>
       </div>
+
       <div className="grid grid-cols-[1.5fr_2fr] gap-4">
+        {/* Left column: Pie chart summary */}
         <div className="flex-1">
           <BudgetsOverviewContainer variant="budgets" />
         </div>
+
+        {/* Right column: List of individual budget summaries */}
         <div className="flex flex-col gap-4 w-full">
-          <BudgetPageOverviewContainer />
-          <BudgetPageOverviewContainer />
+          {budgets.map((budget, index) => {
+            const matchingTransactions = transactions
+              .filter((tx) => tx.category === budget.category)
+              .sort(
+                (a, b) =>
+                  new Date(b.date).getTime() - new Date(a.date).getTime()
+              );
+
+            const spent = matchingTransactions.reduce(
+              (sum, tx) => sum + Math.abs(tx.amount),
+              0
+            );
+
+            const remaining = Math.max(0, budget.maximum - spent);
+
+            const latestTransactions = matchingTransactions.slice(0, 3);
+
+            return (
+              <BudgetPageOverviewContainer
+                key={index}
+                budget={budget}
+                spent={spent}
+                remaining={remaining}
+                latestTransactions={latestTransactions}
+              />
+            );
+          })}
         </div>
       </div>
     </div>
