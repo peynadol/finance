@@ -3,7 +3,7 @@ import { Ellipsis } from "lucide-react";
 const DotHeading = ({ label, color }: { label: string; color: string }) => (
   <div className="flex items-center gap-2 justify-between">
     <div className="flex items-center gap-2">
-      <div className={`h-3 w-3 rounded-full bg-${color}`} />
+      <div className={`h-3 w-3 rounded-full ${color}`} />
       <h2 className="text-preset-2 text-grey-900">{label}</h2>
     </div>
     <div>

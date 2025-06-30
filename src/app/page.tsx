@@ -3,6 +3,8 @@ import OverviewRecurringBillContainer from "./components/overview-recurring-bill
 import OverviewTransactionContainer from "./components/overview-transaction-container";
 import PotOverviewContainer from "./components/pot-overview-container";
 import SummaryCard from "./components/summary-card";
+//TODO: the budget component needs to be full height on dashboard, but not on budgets page
+//TODO: it also needs to change orientation on the budgets page
 
 export default function Home() {
   return (

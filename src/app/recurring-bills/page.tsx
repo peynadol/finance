@@ -26,16 +26,48 @@ const data: Bill[] = [
     dueDate: "2024-08-19T20:23:11Z",
     amount: -55.5,
   },
+  {
+    id: "4",
+    billTitle: "City Water Supply",
+    dueDate: "2024-08-22T09:00:00Z",
+    amount: 45.0,
+  },
+  {
+    id: "5",
+    billTitle: "Tech Innovations Monthly",
+    dueDate: "2024-08-28T12:00:00Z",
+    amount: 78.25,
+  },
+  {
+    id: "6",
+    billTitle: "Home Security Systems",
+    dueDate: "2024-08-21T15:30:00Z",
+    amount: 99.99,
+  },
+  {
+    id: "7",
+    billTitle: "Internet Provider Monthly",
+    dueDate: "2024-08-26T11:00:00Z",
+    amount: 65.0,
+  },
+  {
+    id: "8",
+    billTitle: "Streaming Service Subscription",
+    dueDate: "2024-08-29T18:00:00Z",
+    amount: 12.99,
+  },
 ];
 
 const RecurringBillsPage = () => {
   return (
-    <div className="p-6 flex ">
-      <div>
+    <div className="p-6 grid grid-cols-[1fr_2fr] gap-6">
+      <div className=" space-y-4">
         <TotalBillsCard />
         <SummaryContainer />
       </div>
-      <BillsTable columns={columns} data={data} />
+      <div className=" bg-white rounded-lg p-4">
+        <BillsTable columns={columns} data={data} />
+      </div>
     </div>
   );
 };

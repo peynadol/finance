@@ -4,8 +4,8 @@ import PotsCardProgress from "./pots-card-progress";
 
 const PotsCard = () => {
   return (
-    <div className="bg-white w-[500px] space-y-4 p-6 rounded">
-      <DotHeading label="Savings" color="green" />
+    <div className="bg-white w-full p-6 space-y-4 rounded">
+      <DotHeading label="Savings" color="bg-green" />
       <PotsCardProgress />
       <PotButtonContainer />
     </div>

@@ -13,7 +13,7 @@ const BudgetsOverviewContainer = ({
   const isHome = variant === "home";
 
   return (
-    <div className="bg-white rounded-lg p-8 flex flex-col h-full">
+    <div className="bg-white rounded-lg h-full p-8 flex flex-col">
       {/* Header */}
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-preset-2 text-grey-900">

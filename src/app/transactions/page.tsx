@@ -286,7 +286,7 @@ const TransactionsPage = () => {
       </div>
 
       {/* Table Container */}
-      <div className="bg-white rounded-lg w-[1000px] p-4  ">
+      <div className="bg-white rounded-lg w-full p-4  ">
         <DataTable columns={columns} data={data} />
       </div>
     </div>

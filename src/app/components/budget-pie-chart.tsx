@@ -1,4 +1,5 @@
 "use client";
+//TODO: seem to have developed a bug with the tooltip not working
 
 import { Cell, Pie, PieChart, Tooltip } from "recharts";
 
@@ -17,6 +18,7 @@ const BudgetPieChart = () => {
     <div className="relative w-[220px] h-[220px]">
       <PieChart width={220} height={220}>
         <Pie
+          id="outer-pie"
           data={mockBudgets}
           dataKey="value"
           nameKey="name"
@@ -34,6 +36,7 @@ const BudgetPieChart = () => {
         </Pie>
 
         <Pie
+          id="inner-pie"
           data={mockBudgets}
           dataKey="value"
           nameKey="name"

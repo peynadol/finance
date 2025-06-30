@@ -8,13 +8,15 @@ import BudgetPageOverviewContainer from "../components/budgets/budget-page-overv
 //TODO: fix the styling of this page
 const BudgetsPage = () => {
   return (
-    <div>
+    <div className=" w-full max-w-screen-xl px-6 py-8 mx-auto">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-preset-1">Budgets</h2>
         <AppButton>+ Add New Budget</AppButton>
       </div>
-      <div className="flex">
-        <BudgetsOverviewContainer variant="budgets" />
+      <div className="grid grid-cols-[1.5fr_2fr] gap-4">
+        <div className="flex-1">
+          <BudgetsOverviewContainer variant="budgets" />
+        </div>
         <div className="flex flex-col gap-4 w-full">
           <BudgetPageOverviewContainer />
           <BudgetPageOverviewContainer />

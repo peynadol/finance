@@ -60,8 +60,8 @@ export function BillsTable<TData, TValue>({
   });
 
   return (
-    <div>
-      <div className="flex items-center py-4">
+    <div className="">
+      <div className="flex items-center justify-between py-4">
         <Input
           placeholder="Search bill title..."
           value={

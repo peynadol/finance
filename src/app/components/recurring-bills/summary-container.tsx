@@ -2,7 +2,7 @@ import React from "react";
 
 const SummaryContainer = () => {
   return (
-    <div className="rounded p-4">
+    <div className="rounded-lg p-4 bg-white">
       <h2 className="text-preset-3">Summary</h2>
       <div className="flex items-center justify-between border-b py-4">
         <p className="text-preset-5 text-grey-500">Paid Bills</p>
