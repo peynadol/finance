@@ -10,7 +10,7 @@ const PotTotalCard = ({ total, className }: PotTotalCardProps) => {
   return (
     <div
       className={clsx(
-        "bg-beige-100 rounded h-full flex items-center p-4",
+        "bg-beige-100 rounded-lg h-full flex items-center p-4",
         className
       )}
     >

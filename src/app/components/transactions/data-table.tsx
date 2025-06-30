@@ -1,5 +1,6 @@
 "use client";
-//TODO: Table size is currently set to 1 for pagination testing purposes.
+//TODO: Need to figure out how to dynamically size the table based on the screen size
+//TODO: maybe add numbered pagination
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -54,7 +55,7 @@ export function DataTable<TData, TValue>({
     onSortingChange: setSorting,
     initialState: {
       pagination: {
-        pageSize: 1,
+        pageSize: 10,
       },
     },
     state: {
@@ -65,83 +66,91 @@ export function DataTable<TData, TValue>({
 
   return (
     <div>
-      <div className="flex items-center py-4">
-        <Input
-          placeholder="Search recipient or sender..."
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
+      <div className="flex items-center py-4 justify-between">
+        <div>
+          <Input
+            placeholder="Search recipient or sender..."
+            value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+            onChange={(event) =>
+              table.getColumn("name")?.setFilterValue(event.target.value)
+            }
+            className="max-w-sm"
+          />
+        </div>
 
         {/* Category Filter */}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline">
-              Category <ChevronDown className="ml-2 h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {["All Transactions", "General", "Dining Out", "Bills"].map(
-              (category) => (
-                <DropdownMenuItem
-                  key={category}
-                  onSelect={() => {
-                    table
-                      .getColumn("category")
-                      ?.setFilterValue(
-                        category === "All Transactions" ? undefined : category
-                      );
-                  }}
-                >
-                  {category}
-                </DropdownMenuItem>
-              )
-            )}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className="flex items-center gap-4">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline">
+                Category <ChevronDown className="ml-2 h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              {["All Transactions", "General", "Dining Out", "Bills"].map(
+                (category) => (
+                  <DropdownMenuItem
+                    key={category}
+                    onSelect={() => {
+                      table
+                        .getColumn("category")
+                        ?.setFilterValue(
+                          category === "All Transactions" ? undefined : category
+                        );
+                    }}
+                  >
+                    {category}
+                  </DropdownMenuItem>
+                )
+              )}
+            </DropdownMenuContent>
+          </DropdownMenu>
 
-        {/* Sort Options */}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline">
-              Sort by <ChevronDown className="ml-2 h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="start">
-            <DropdownMenuItem
-              onSelect={() => table.setSorting([{ id: "date", desc: true }])}
-            >
-              Latest
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onSelect={() => table.setSorting([{ id: "date", desc: false }])}
-            >
-              Oldest
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onSelect={() => table.setSorting([{ id: "name", desc: false }])}
-            >
-              A to Z
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onSelect={() => table.setSorting([{ id: "name", desc: true }])}
-            >
-              Z to A
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onSelect={() => table.setSorting([{ id: "amount", desc: true }])}
-            >
-              Highest
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onSelect={() => table.setSorting([{ id: "amount", desc: false }])}
-            >
-              Lowest
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+          {/* Sort Options */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline">
+                Sort by <ChevronDown className="ml-2 h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start">
+              <DropdownMenuItem
+                onSelect={() => table.setSorting([{ id: "date", desc: true }])}
+              >
+                Latest
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onSelect={() => table.setSorting([{ id: "date", desc: false }])}
+              >
+                Oldest
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onSelect={() => table.setSorting([{ id: "name", desc: false }])}
+              >
+                A to Z
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onSelect={() => table.setSorting([{ id: "name", desc: true }])}
+              >
+                Z to A
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onSelect={() =>
+                  table.setSorting([{ id: "amount", desc: true }])
+                }
+              >
+                Highest
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onSelect={() =>
+                  table.setSorting([{ id: "amount", desc: false }])
+                }
+              >
+                Lowest
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
 
       {/* Table */}

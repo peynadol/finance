@@ -23,8 +23,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${publicSans.variable} antialiased`}>
         <SidebarProvider>
-          <AppSidebar />
-          <main>{children}</main>
+          <div className="flex min-h-screen">
+            <AppSidebar />
+            <main className="flex-1">{children}</main>
+          </div>
         </SidebarProvider>
       </body>
     </html>

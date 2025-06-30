@@ -1,4 +1,5 @@
 //TODO: in future, have the colour of the amount change based on whether its income or outgoing
+//TODO: add avatar images for the transactions
 type OverviewTransactionCardProps = {
   name: string;
   amount: number;
@@ -12,7 +13,8 @@ const OverviewTransactionCard = ({
   return (
     <div className="flex gap-4 bg-transparent py-4 w-full border-t border-grey-100 justify-between ">
       <div className="flex items-center gap-4">
-        <div className="rounded-full bg-red h-10 w-10"></div>
+        <div className="rounded-full bg-red h-10 w-10"></div>{" "}
+        {/* Placeholder for avatar */}
         <p className="text-preset-4-bold">{name}</p>
       </div>
       <div>
