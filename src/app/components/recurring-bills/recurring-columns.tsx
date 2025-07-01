@@ -2,42 +2,62 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
+import Image from "next/image";
 
 export type Bill = {
-  id: string;
-  billTitle: string;
-  dueDate: string;
+  name: string;
+  avatar?: string;
+  category: string;
   amount: number;
+  date: string;
+  recurring: boolean;
 };
 
 export const columns: ColumnDef<Bill>[] = [
   {
-    accessorKey: "billTitle",
+    accessorKey: "name",
     header: () => (
       <div className="text-left text-preset-5 text-grey-500">Bill Title</div>
     ),
-    enableSorting: true,
     cell: ({ row }) => {
-      const title: string = row.getValue("billTitle");
-      return <span className="text-preset-4-bold text-grey-900">{title}</span>;
+      const name = row.getValue("name") as string;
+      const avatar = row.original.avatar;
+
+      return (
+        <div className="flex items-center gap-2">
+          {avatar ? (
+            <Image
+              src={avatar.replace(/^\.\/assets/, "")}
+              alt={name}
+              width={32}
+              height={32}
+              className="rounded-full object-cover"
+            />
+          ) : (
+            <div className="w-8 h-8 rounded-full bg-grey-200" />
+          )}
+          <span className="text-preset-4-bold text-grey-900">{name}</span>
+        </div>
+      );
     },
+    enableSorting: true,
   },
   {
-    accessorKey: "dueDate",
+    accessorKey: "date",
     header: () => (
       <div className="text-left text-preset-5 text-grey-500">Due Date</div>
     ),
     enableSorting: true,
     sortingFn: (rowA, rowB) => {
-      const dateA = new Date(rowA.getValue("dueDate"));
-      const dateB = new Date(rowB.getValue("dueDate"));
-      return dateA.getTime() - dateB.getTime();
+      const a = new Date(rowA.getValue("date")).getTime() || 0;
+      const b = new Date(rowB.getValue("date")).getTime() || 0;
+      return a - b;
     },
     cell: ({ row }) => {
-      const dueDate: string = row.getValue("dueDate");
+      const date = row.getValue("date") as string;
       return (
         <div className="text-preset-5 text-grey-500">
-          {format(new Date(dueDate), "dd MMM yyyy")}
+          {format(new Date(date), "dd MMM yyyy")}
         </div>
       );
     },
@@ -49,10 +69,10 @@ export const columns: ColumnDef<Bill>[] = [
     ),
     enableSorting: true,
     cell: ({ row }) => {
-      const amount: number = row.getValue("amount");
+      const amount = row.getValue("amount") as number;
       return (
         <div className="text-right text-preset-4-bold text-grey-900">
-          £{amount.toFixed(2)}
+          £{Math.abs(amount).toFixed(2)}
         </div>
       );
     },

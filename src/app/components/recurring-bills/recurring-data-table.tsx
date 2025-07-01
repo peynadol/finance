@@ -64,11 +64,9 @@ export function BillsTable<TData, TValue>({
       <div className="flex items-center justify-between py-4">
         <Input
           placeholder="Search bill title..."
-          value={
-            (table.getColumn("billTitle")?.getFilterValue() as string) ?? ""
-          }
+          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("billTitle")?.setFilterValue(event.target.value)
+            table.getColumn("name")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
@@ -82,24 +80,22 @@ export function BillsTable<TData, TValue>({
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start">
             <DropdownMenuItem
-              onSelect={() =>
-                table.setSorting([{ id: "dueDate", desc: false }])
-              }
+              onSelect={() => table.setSorting([{ id: "date", desc: false }])}
             >
               Soonest Due
             </DropdownMenuItem>
             <DropdownMenuItem
-              onSelect={() => table.setSorting([{ id: "dueDate", desc: true }])}
+              onSelect={() => table.setSorting([{ id: "date", desc: true }])}
             >
               Latest Due
             </DropdownMenuItem>
             <DropdownMenuItem
-              onSelect={() => table.setSorting([{ id: "title", desc: false }])}
+              onSelect={() => table.setSorting([{ id: "name", desc: false }])}
             >
               A to Z
             </DropdownMenuItem>
             <DropdownMenuItem
-              onSelect={() => table.setSorting([{ id: "title", desc: true }])}
+              onSelect={() => table.setSorting([{ id: "name", desc: true }])}
             >
               Z to A
             </DropdownMenuItem>
