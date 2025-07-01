@@ -9,10 +9,15 @@ type BudgetPieChartProps = {
     color: string;
   }[];
   totalLimit: number;
+  totalSpent: number;
 };
 
-const BudgetPieChart = ({ data, totalLimit }: BudgetPieChartProps) => {
-  const spent = data.reduce((sum, item) => sum + item.value, 0);
+const BudgetPieChart = ({
+  data,
+  totalLimit,
+  totalSpent,
+}: BudgetPieChartProps) => {
+  const isOverBudget = totalSpent > totalLimit;
 
   return (
     <div className="relative w-[220px] h-[220px]">
@@ -55,7 +60,11 @@ const BudgetPieChart = ({ data, totalLimit }: BudgetPieChartProps) => {
       </PieChart>
 
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none">
-        <p className="text-preset-1 text-grey-900">£{Math.round(spent)}</p>
+        <span
+          className={isOverBudget ? "text-red text-preset-1" : "text-preset-1"}
+        >
+          £{Math.round(totalSpent)}
+        </span>
         <p className="text-preset-4 text-grey-500">
           of £{Math.round(totalLimit)} limit
         </p>

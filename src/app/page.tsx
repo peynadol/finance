@@ -59,7 +59,7 @@ export default function Home() {
         {/* Right Column */}
         <div className="flex flex-col gap-6 ">
           <div className="grow">
-            <BudgetsOverviewContainer />
+            <BudgetsOverviewContainer budgets={budgets} transactions={transactions} />
           </div>
           <div className="shrink-0">
             <OverviewRecurringBillContainer recurringBills={recurringBills} />
