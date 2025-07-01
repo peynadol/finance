@@ -11,7 +11,7 @@ type PotsCardProps = {
 const PotsCard = ({ name, total, target, theme }: PotsCardProps) => {
   return (
     <div className="bg-white w-full p-6 space-y-4 rounded">
-      <DotHeading label={name} colour={theme} />
+      <DotHeading label={name} colour={theme ?? ""} />
       <PotsCardProgress target={target} total={total} theme={theme} />
       <PotButtonContainer />
     </div>

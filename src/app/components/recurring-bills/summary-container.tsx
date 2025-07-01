@@ -1,23 +1,44 @@
 import clsx from "clsx";
+import { Transaction } from "@/lib/types";
 
-// this data has to be hardcoded for now
-// json isn't condusive to calculating upcoming, due soon, etc.
-const SummaryContainer = () => {
+const SummaryContainer = ({
+  transactions,
+}: {
+  transactions: Transaction[];
+}) => {
+  // consider abstracting this logic to a custom hook as it's used in one other place so far
+  const today = new Date();
+  const dueSoonThreshold = new Date();
+  dueSoonThreshold.setDate(today.getDate() + 2);
+
+  const recurringBills = transactions.filter(
+    (tx) => tx.recurring && tx.type === "expense"
+  );
+
+  const paidBills = recurringBills.filter((tx) => new Date(tx.date) < today);
+  const totalUpcoming = recurringBills.filter(
+    (tx) => new Date(tx.date) > today
+  );
+  const dueSoon = recurringBills.filter((tx) => {
+    const billDate = new Date(tx.date);
+    return billDate > today && billDate <= dueSoonThreshold;
+  });
+
   const summaryData = [
     {
       label: "Paid Bills",
-      count: 4,
-      amount: 190.0,
+      count: paidBills.length,
+      amount: paidBills.reduce((sum, tx) => sum + tx.amount, 0),
     },
     {
       label: "Total Upcoming",
-      count: 4,
-      amount: 194.98,
+      count: totalUpcoming.length,
+      amount: totalUpcoming.reduce((sum, tx) => sum + tx.amount, 0),
     },
     {
       label: "Due Soon",
-      count: 2,
-      amount: 59.98,
+      count: dueSoon.length,
+      amount: dueSoon.reduce((sum, tx) => sum + tx.amount, 0),
       isWarning: true,
     },
   ];
@@ -36,7 +57,7 @@ const SummaryContainer = () => {
           <p
             className={clsx(
               "text-preset-5",
-              isWarning ? "text-red-500" : "text-grey-500"
+              isWarning ? "text-red" : "text-grey-500"
             )}
           >
             {label}
@@ -44,7 +65,7 @@ const SummaryContainer = () => {
           <p
             className={clsx(
               "text-preset-5-bold",
-              isWarning ? "text-red-500" : "text-grey-900"
+              isWarning ? "text-red" : "text-grey-900"
             )}
           >
             {count} (£{amount.toFixed(2)})

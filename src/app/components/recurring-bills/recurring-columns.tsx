@@ -2,11 +2,9 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
-import Image from "next/image";
 
 export type Bill = {
   name: string;
-  avatar?: string;
   category: string;
   amount: number;
   date: string;
@@ -25,18 +23,7 @@ export const columns: ColumnDef<Bill>[] = [
 
       return (
         <div className="flex items-center gap-2">
-          {avatar ? (
-            <Image
-              src={avatar.replace(/^\.\/assets/, "")}
-              alt={name}
-              width={32}
-              height={32}
-              className="rounded-full object-cover"
-            />
-          ) : (
-            <div className="w-8 h-8 rounded-full bg-grey-200" />
-          )}
-          <span className="text-preset-4-bold text-grey-900">{name}</span>
+          <p className="text-preset-4-bold text-grey-900">{name}</p>
         </div>
       );
     },
