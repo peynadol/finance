@@ -1,26 +1,48 @@
 import { ChevronRight } from "lucide-react";
 import OverviewRecurringBillCard from "./overview-recurring-bill-card";
 import Link from "next/link";
-import { useStore } from "@/lib/useStore";
+import { Transaction } from "@/lib/types";
 
-const OverviewRecurringBillContainer = () => {
-  // const recurringBills = useStore((state) => state.recurringBills);
-  // for now, using hardcoded data
-  // the provided data is all in the past, so hard to dynamically render 'upcoming' bills
+const OverviewRecurringBillContainer = ({
+  recurringBills,
+}: {
+  recurringBills: Transaction[];
+}) => {
+  const today = new Date();
+  const dueSoonThreshold = new Date();
+  dueSoonThreshold.setDate(today.getDate() + 2); // 2 days from
+
+  const totalPaid = recurringBills.reduce((acc, bill) => {
+    const billDate = new Date(bill.date);
+    return billDate < today ? acc + bill.amount : acc;
+  }, 0);
+
+  const totalUpcoming = recurringBills.reduce((acc, bill) => {
+    const billDate = new Date(bill.date);
+    return billDate > today ? acc + bill.amount : acc;
+  }, 0);
+
+  const totalDueSoon = recurringBills.reduce((acc, bill) => {
+    const billDate = new Date(bill.date);
+    return billDate > today && billDate <= dueSoonThreshold
+      ? acc + bill.amount
+      : acc;
+  }, 0);
+
   const recurringBillSummaries = [
     {
       name: "Paid Bills",
-      amount: 190.0,
+      amount: totalPaid,
       colour: "bg-green-800",
     },
     {
       name: "Total Upcoming",
-      amount: 194.98,
+      amount: totalUpcoming,
       colour: "bg-orange-200",
     },
     {
       name: "Due Soon",
-      amount: 59.98,
+      amount: totalDueSoon,
       colour: "bg-sky-300",
     },
   ];

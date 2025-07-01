@@ -5,7 +5,6 @@ import { useStore } from "@/lib/useStore";
 
 const PotsPage = () => {
   const pots = useStore((state) => state.pots);
-  console.log("Pots:", pots);
   return (
     <div className="p-6 space-y-4">
       <div className="flex items-center justify-between">

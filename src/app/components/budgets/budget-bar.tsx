@@ -8,7 +8,6 @@ type BudgetBarProps = {
 };
 const BudgetBar = ({ colour, spent, maximum }: BudgetBarProps) => {
   const [progress, setProgress] = useState(0);
-  console.log("BudgetBar - spent:", spent, "maximum:", maximum);
   const newProgress = Math.min(Math.max((spent / maximum) * 100, 0), 100);
 
   useEffect(() => {

@@ -4,16 +4,38 @@ import OverviewRecurringBillContainer from "./components/overview-recurring-bill
 import OverviewTransactionContainer from "./components/overview-transaction-container";
 import PotOverviewContainer from "./components/pot-overview-container";
 import SummaryCard from "./components/summary-card";
-import { useStore } from "@/lib/useStore";
+import {
+  useGetTransactions,
+  useGetBudgets,
+  useGetPots,
+} from "@/lib/queries/queries";
 //TODO: the budget component needs to be full height on dashboard, but not on budgets page
 //TODO: it also needs to change orientation on the budgets page
 
 export default function Home() {
-  const balances = useStore((state) => state.balance);
+  const { data: transactions = [], isLoading: isLoadingTransactions } =
+    useGetTransactions();
+  const { data: budgets = [], isLoading: isLoadingBudgets } = useGetBudgets();
+  const { data: pots = [], isLoading: isLoadingPots } = useGetPots();
+
+  const isLoading = isLoadingTransactions || isLoadingBudgets || isLoadingPots;
+
+  const totalIncome = transactions.reduce((acc, transaction) => {
+    return transaction.type === "income" ? acc + transaction.amount : acc;
+  }, 0);
+  const totalExpenses = transactions.reduce((acc, transaction) => {
+    return transaction.type === "expense" ? acc + transaction.amount : acc;
+  }, 0);
+  const currentBalance = totalIncome - totalExpenses;
+  const recurringBills = transactions.filter(
+    (transaction) => transaction.recurring && transaction.type === "expense"
+  );
+  console.log("recurringBills", recurringBills);
+
   const summaryItems = [
-    { id: "current", label: "Current Balance", amount: balances.current },
-    { id: "income", label: "Income", amount: balances.income },
-    { id: "expense", label: "Expenses", amount: balances.expenses },
+    { id: "current", label: "Current Balance", amount: currentBalance },
+    { id: "income", label: "Income", amount: totalIncome },
+    { id: "expense", label: "Expenses", amount: totalExpenses },
   ];
   return (
     <div className="mx-auto max-w-screen-xl px-6 space-y-6 ">
@@ -30,8 +52,8 @@ export default function Home() {
       <div className="grid grid-cols-1 md:grid-cols-[1.50fr_0.50fr] gap-6 items-stretch">
         {/* Left Column */}
         <div className="flex flex-col justify-between h-full space-y-6">
-          <PotOverviewContainer />
-          <OverviewTransactionContainer />
+          <PotOverviewContainer pots={pots} transactions={transactions} />
+          <OverviewTransactionContainer transactions={transactions} />
         </div>
 
         {/* Right Column */}
@@ -40,7 +62,7 @@ export default function Home() {
             <BudgetsOverviewContainer />
           </div>
           <div className="shrink-0">
-            <OverviewRecurringBillContainer />
+            <OverviewRecurringBillContainer recurringBills={recurringBills} />
           </div>
         </div>
       </div>

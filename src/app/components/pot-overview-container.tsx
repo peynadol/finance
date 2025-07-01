@@ -2,13 +2,37 @@ import { ChevronRight } from "lucide-react";
 import OverviewSummaryCard from "./overview-summary-card";
 import PotTotalCard from "./pot-total-card";
 import Link from "next/link";
-import { useStore } from "@/lib/useStore";
+import { Pot, Transaction } from "@/lib/types";
 
-const PotOverviewContainer = () => {
-  const pots = useStore((state) => state.pots);
-  console.log("Pots:", pots);
-  const total = pots.reduce((acc, pot) => acc + pot.total, 0);
-  console.log("Total Pots:", total);
+const PotOverviewContainer = ({
+  pots,
+  transactions,
+}: {
+  pots: Pot[];
+  transactions: Transaction[];
+}) => {
+  // calculates how much is saved in a specific pot
+  const getPotTotal = (potName: string) => {
+    return transactions.reduce((acc, transaction) => {
+      return transaction.category === potName ? acc + transaction.amount : acc;
+    }, 0);
+  };
+
+  // enrich pots with totalSaved field
+  const enrichedPots = pots.map((pot) => ({
+    ...pot,
+    totalSaved: getPotTotal(pot.name),
+  }));
+
+  // calculates total saved across all pots
+  const totalSaved = enrichedPots.reduce((acc, pot) => acc + pot.totalSaved, 0);
+  console.log("All pot-related transactions:");
+  pots.forEach((pot) => {
+    const related = transactions.filter(
+      (t) => t.category === pot.name && t.type === "expense"
+    );
+    console.log(pot.name, related.length, related);
+  });
 
   return (
     <div className="bg-white rounded-lg p-8">
@@ -27,16 +51,16 @@ const PotOverviewContainer = () => {
       <div className="flex gap-6">
         {/* Total Saved Section */}
         <div className="flex-1">
-          <PotTotalCard total={total} />
+          <PotTotalCard total={totalSaved} />
         </div>
 
         {/* Grid of Pots */}
         <div className="grid grid-cols-2 gap-x-4 gap-y-6 flex-1">
-          {pots.slice(0, 4).map((pot) => (
+          {enrichedPots.slice(0, 4).map((pot) => (
             <OverviewSummaryCard
               key={pot.name}
               name={pot.name}
-              amount={pot.total}
+              amount={pot.totalSaved}
               colour={pot.theme}
             />
           ))}

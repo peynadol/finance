@@ -10,7 +10,6 @@ import { useStore } from "@/lib/useStore";
 
 const RecurringBillsPage = () => {
   const recurringBills = useStore((state) => state.recurringBills);
-  console.log("Recurring Bills:", recurringBills);
   const total = Math.abs(
     recurringBills.reduce((acc, bill) => acc + bill.amount, 0)
   );

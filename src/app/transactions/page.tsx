@@ -7,7 +7,6 @@ import { useStore } from "@/lib/useStore";
 
 const TransactionsPage = () => {
   const transactionsStore = useStore((state) => state.transactions);
-  console.log("Transactions Store:", transactionsStore);
   return (
     <div className="flex flex-col h-full p-4 space-y-4">
       {/* Header */}
