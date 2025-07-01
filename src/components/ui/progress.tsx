@@ -21,7 +21,7 @@ function Progress({ className, value, colour, ...props }: ProgressProps) {
     >
       <ProgressPrimitive.Indicator
         data-slot="progress-indicator"
-        className="h-full w-full flex-1 transition-all"
+        className="h-full w-full flex-1 transition-all duration-[1500ms]"
         style={{
           transform: `translateX(-${100 - (value || 0)}%)`,
           backgroundColor: colour || "hsl(var(--primary))",

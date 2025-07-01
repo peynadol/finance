@@ -11,7 +11,7 @@ const BudgetBar = ({ colour, spent, maximum }: BudgetBarProps) => {
   const newProgress = Math.min(Math.max((spent / maximum) * 100, 0), 100);
 
   useEffect(() => {
-    const timer = setTimeout(() => setProgress(newProgress), 500);
+    const timer = setTimeout(() => setProgress(newProgress), 300);
     return () => clearTimeout(timer);
   }, [newProgress]);
   return (
