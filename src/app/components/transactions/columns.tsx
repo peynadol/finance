@@ -3,17 +3,9 @@
 import { ColumnDef } from "@tanstack/react-table";
 import Image from "next/image";
 import { format } from "date-fns";
+import { Transaction } from "@/lib/types";
 
 //TODO: maybe add a check mark to the dropdown category filter to indicate the selected category
-
-export type Transaction = {
-  name: string;
-  avatar: string;
-  category: string;
-  date: string;
-  amount: number;
-  recurring: boolean;
-};
 
 export const columns: ColumnDef<Transaction>[] = [
   {
@@ -25,22 +17,11 @@ export const columns: ColumnDef<Transaction>[] = [
       </div>
     ),
     cell: ({ row }) => {
-      const { name, avatar } = row.original;
+      const { name } = row.original;
 
       return (
-        <div className="flex items-center gap-2">
-          {avatar ? (
-            <Image
-              src={avatar.replace(/^\.\/assets/, "")}
-              alt={name}
-              width={32}
-              height={32}
-              className="rounded-full object-cover"
-            />
-          ) : (
-            <div className="w-8 h-8 rounded-full bg-grey-200" />
-          )}
-          <span className="text-preset-4-bold text-grey-900">{name}</span>
+        <div className="flex items-center">
+          <p className="text-preset-4-bold text-grey-900">{name}</p>
         </div>
       );
     },

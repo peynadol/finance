@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -59,7 +60,16 @@ export function AppSidebar() {
   return (
     <>
       <Sidebar>
-        <SidebarHeader>finance</SidebarHeader>
+        <SidebarHeader>
+          <Link href="/" className="flex items-center p-4">
+            <Image
+              src={"/images/logo-large.svg"}
+              alt="Finance Logo"
+              width={120}
+              height={120}
+            />
+          </Link>
+        </SidebarHeader>
         <SidebarContent>
           <SidebarGroup className="mt-6">
             <SidebarGroupContent>
