@@ -64,6 +64,11 @@ export function DataTable<TData, TValue>({
     },
   });
 
+  // grabs unique categories from the data
+  const uniqueCategories = Array.from(
+    new Set(data.map((item: any) => item.category))
+  ).filter(Boolean);
+
   return (
     <div>
       <div className="flex items-center py-4 justify-between">
@@ -89,22 +94,23 @@ export function DataTable<TData, TValue>({
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              {["All Transactions", "General", "Dining Out", "Bills"].map(
-                (category) => (
-                  <DropdownMenuItem
-                    key={category}
-                    onSelect={() => {
-                      table
-                        .getColumn("category")
-                        ?.setFilterValue(
-                          category === "All Transactions" ? undefined : category
-                        );
-                    }}
-                  >
-                    {category}
-                  </DropdownMenuItem>
-                )
-              )}
+              <DropdownMenuItem
+                onSelect={() =>
+                  table.getColumn("category")?.setFilterValue(undefined)
+                }
+              >
+                All Transactions
+              </DropdownMenuItem>
+              {uniqueCategories.map((category) => (
+                <DropdownMenuItem
+                  key={category}
+                  onSelect={() => {
+                    table.getColumn("category")?.setFilterValue(category);
+                  }}
+                >
+                  {category}
+                </DropdownMenuItem>
+              ))}
             </DropdownMenuContent>
           </DropdownMenu>
 

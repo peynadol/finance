@@ -1,11 +1,11 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import Image from "next/image";
 import { format } from "date-fns";
 import { Transaction } from "@/lib/types";
 
 //TODO: maybe add a check mark to the dropdown category filter to indicate the selected category
+// category needs to be inferred from the transaction type
 
 export const columns: ColumnDef<Transaction>[] = [
   {
@@ -71,15 +71,15 @@ export const columns: ColumnDef<Transaction>[] = [
     enableSorting: true,
     cell: ({ row }) => {
       const amount: number = row.getValue("amount");
+      const type: string = row.original.type;
+
+      const isIncome = type === "income";
+      const sign = isIncome ? "+" : "-";
+      const color = isIncome ? "text-green" : "text-red";
+
       return (
-        <div
-          className={`text-right text-preset-4-bold ${
-            amount > 0 ? "text-green" : "text-grey-900"
-          }`}
-        >
-          {amount > 0
-            ? `+£${amount.toFixed(2)}`
-            : `-£${Math.abs(amount).toFixed(2)}`}
+        <div className={`text-right text-preset-4-bold ${color}`}>
+          {`${sign}£${amount.toFixed(2)}`}
         </div>
       );
     },
