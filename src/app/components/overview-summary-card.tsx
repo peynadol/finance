@@ -1,4 +1,3 @@
-
 type OverviewSummaryCardProps = {
   name: string;
   amount: number;

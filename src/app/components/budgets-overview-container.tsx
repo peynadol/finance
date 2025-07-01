@@ -4,7 +4,9 @@ import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import BudgetPieChart from "./budget-pie-chart";
 import OverviewSummaryCard from "./overview-summary-card";
+import OverviewBudgetSummaryRow from "./overview-budget-summary-row";
 import { Budget, Transaction } from "@/lib/types";
+import clsx from "clsx";
 
 type BudgetsOverviewContainerProps = {
   variant?: "home" | "budgets";
@@ -36,7 +38,12 @@ const BudgetsOverviewContainer = ({
   const totalSpent = pieData.reduce((acc, b) => acc + b.value, 0);
 
   return (
-    <div className="bg-white rounded-lg h-full p-8 flex flex-col">
+    <div
+      className={clsx(
+        "bg-white rounded-lg p-8 flex flex-col",
+        variant === "home" && "h-full"
+      )}
+    >
       {/* Header */}
       {isHome && (
         <div className="flex justify-between items-center mb-4">
@@ -65,17 +72,29 @@ const BudgetsOverviewContainer = ({
           />
         </div>
 
-        {!isHome && <h2 className="text-preset-2 mb-4">Spending Summary</h2>}
+        {!isHome && (
+          <h2 className="text-preset-2 mb-4 self-start">Spending Summary</h2>
+        )}
 
-        <div className="space-y-4">
-          {pieData.map((item) => (
-            <OverviewSummaryCard
-              key={item.name}
-              name={item.name}
-              amount={item.value}
-              colour={item.color}
-            />
-          ))}
+        <div className="space-y-4 w-full">
+          {pieData.map((item) =>
+            isHome ? (
+              <OverviewSummaryCard
+                key={item.name}
+                name={item.name}
+                amount={item.value}
+                colour={item.color}
+              />
+            ) : (
+              <OverviewBudgetSummaryRow
+                key={item.name}
+                name={item.name}
+                spent={item.value}
+                maximum={item.maximum}
+                colour={item.color}
+              />
+            )
+          )}
         </div>
       </div>
     </div>

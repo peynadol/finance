@@ -55,8 +55,6 @@ const BudgetPieChart = ({
             <Cell key={`inner-${index}`} fill={entry.color} fillOpacity={0.7} />
           ))}
         </Pie>
-
-        <Tooltip />
       </PieChart>
 
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none">
