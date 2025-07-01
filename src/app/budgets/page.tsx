@@ -3,11 +3,11 @@
 import { AppButton } from "../components/app-button";
 import BudgetsOverviewContainer from "../components/budgets-overview-container";
 import BudgetPageOverviewContainer from "../components/budgets/budget-page-overview-container";
-import { useStore } from "@/lib/useStore";
+import { useGetBudgets, useGetTransactions } from "@/lib/queries/queries";
 
 const BudgetsPage = () => {
-  const budgets = useStore((state) => state.budgets);
-  const transactions = useStore((state) => state.transactions);
+  const { data: budgets = [] } = useGetBudgets();
+  const { data: transactions = [] } = useGetTransactions();
 
   return (
     <div className="w-full max-w-screen-xl px-6 py-8 mx-auto">
@@ -19,7 +19,11 @@ const BudgetsPage = () => {
       <div className="grid grid-cols-[1.5fr_2fr] gap-4">
         {/* Left column: Pie chart summary */}
         <div className="flex-1">
-          <BudgetsOverviewContainer variant="budgets" />
+          <BudgetsOverviewContainer
+            variant="budgets"
+            budgets={budgets}
+            transactions={transactions}
+          />
         </div>
 
         {/* Right column: List of individual budget summaries */}

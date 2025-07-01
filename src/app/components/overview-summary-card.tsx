@@ -1,4 +1,3 @@
-import { clsx } from "clsx";
 
 type OverviewSummaryCardProps = {
   name: string;
@@ -19,7 +18,7 @@ const OverviewSummaryCard = ({
       ></div>
       <div className="flex flex-col gap-2">
         <p className="text-grey-500 text-preset-5">{name}</p>
-        <p className="text-grey-900 text-preset-5-bold">£{amount}</p>
+        <p className="text-grey-900 text-preset-5-bold">£{amount.toFixed(2)}</p>
       </div>
     </div>
   );

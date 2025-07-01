@@ -28,7 +28,6 @@ const LatestSpendingCard = ({ transactions }: LatestSpendingCardProps) => {
         {transactions.length > 0 ? (
           transactions.map((tx, index) => (
             <OverviewTransactionCard
-              avatarPath={tx.avatar.replace(/^\.\/assets/, "")}
               key={index}
               name={tx.name}
               amount={tx.amount}
