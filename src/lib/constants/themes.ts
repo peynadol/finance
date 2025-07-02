@@ -1,0 +1,17 @@
+export const Themes = [
+  { label: "Green", value: "green", color: "#277C78" },
+  { label: "Yellow", value: "yellow", color: "#F2CDAC" },
+  { label: "Cyan", value: "cyan", color: "#82C9D7" },
+  { label: "Navy", value: "navy", color: "#626070" },
+  { label: "Red", value: "red", color: "#C94736" },
+  { label: "Purple Secondary", value: "purple-secondary", color: "#826CB0" },
+  { label: "Purple", value: "purple", color: "#AF81BA" },
+  { label: "Turquoise", value: "turquoise", color: "#597C7C" },
+  { label: "Brown", value: "brown", color: "#93674F" },
+  { label: "Magenta", value: "magenta", color: "#934F6F" },
+  { label: "Blue", value: "blue", color: "#3F82B2" },
+  { label: "Navy Grey", value: "navy-grey", color: "#97A0AC" },
+  { label: "Army Green", value: "army-green", color: "#7F9161" },
+  { label: "Gold", value: "gold", color: "#CAB361" },
+  { label: "Orange", value: "orange", color: "#BE6C49" },
+];

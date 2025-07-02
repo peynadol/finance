@@ -133,12 +133,16 @@ export function DataTable<TData, TValue>({
                 Oldest
               </DropdownMenuItem>
               <DropdownMenuItem
-                onSelect={() => table.setSorting([{ id: "name", desc: false }])}
+                onSelect={() =>
+                  table.setSorting([{ id: "recipient", desc: false }])
+                }
               >
                 A to Z
               </DropdownMenuItem>
               <DropdownMenuItem
-                onSelect={() => table.setSorting([{ id: "name", desc: true }])}
+                onSelect={() =>
+                  table.setSorting([{ id: "recipient", desc: true }])
+                }
               >
                 Z to A
               </DropdownMenuItem>
