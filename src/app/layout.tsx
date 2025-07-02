@@ -7,6 +7,7 @@ import { Providers } from "./providers";
 import { AddBudgetModal } from "./components/modals/add-budget-modal";
 import { AddPotModal } from "./components/modals/add-pot-modal";
 import { AddTransactionModal } from "./components/modals/add-transaction-modal";
+import { DeletePotModal } from "./components/modals/delete-pot-modal";
 
 const publicSans = Public_Sans({
   variable: "--font-public-sans",
@@ -38,6 +39,7 @@ export default function RootLayout({
             <AddBudgetModal />
             <AddPotModal />
             <AddTransactionModal />
+            <DeletePotModal />
           </SidebarProvider>
         </Providers>
       </body>
