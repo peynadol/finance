@@ -1,6 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
 import type { Transaction } from "@/lib/types";
+import { AddPotSchema } from "../schemas/pot";
 
 export const useGetTransactions = () => {
   return useQuery<Transaction[]>({
@@ -47,5 +48,19 @@ export const useGetPots = () => {
       return data || [];
     },
     refetchOnWindowFocus: false,
+  });
+};
+
+export const useCreatePot = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (data: AddPotSchema) => {
+      const { error } = await supabase.from("pots").insert(data);
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["pots"] });
+    },
   });
 };

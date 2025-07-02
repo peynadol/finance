@@ -5,6 +5,8 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "./components/app-sidebar";
 import { Providers } from "./providers";
 import { AddBudgetModal } from "./components/modals/add-budget-modal";
+import { AddPotModal } from "./components/modals/add-pot-modal";
+import { AddTransactionModal } from "./components/modals/add-transaction-modal";
 
 const publicSans = Public_Sans({
   variable: "--font-public-sans",
@@ -24,17 +26,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${publicSans.variable} antialiased`}>
-        <SidebarProvider>
-          <div className="flex min-h-screen w-screen overflow-x-hidden">
-            <AppSidebar />
-            <main className="flex-1 min-w-0 w-full">
-              <Providers>
+        <Providers>
+          <SidebarProvider>
+            <div className="flex min-h-screen w-screen overflow-x-hidden">
+              <AppSidebar />
+              <main className="flex-1 min-w-0 w-full">
                 <div className="w-full h-full">{children}</div>
-              </Providers>
-            </main>
-          </div>
-          <AddBudgetModal />
-        </SidebarProvider>
+              </main>
+            </div>
+            {/* Modals */}
+            <AddBudgetModal />
+            <AddPotModal />
+            <AddTransactionModal />
+          </SidebarProvider>
+        </Providers>
       </body>
     </html>
   );

@@ -64,16 +64,6 @@ export function AddBudgetForm({
           ))}
         </select>
 
-        {form.watch("category") === "__manual" && (
-          <input
-            type="text"
-            placeholder="Enter new category"
-            {...register("category")}
-            className="mt-2 w-full rounded-md border border-input px-3 py-2 text-sm shadow-sm"
-            onChange={(e) => form.setValue("category", e.target.value)}
-          />
-        )}
-
         {errors.category && (
           <p className="text-sm text-red-500">{errors.category.message}</p>
         )}

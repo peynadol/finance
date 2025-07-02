@@ -27,7 +27,8 @@ export function AddBudgetModal() {
         <DialogHeader>
           <DialogTitle>Add Budget</DialogTitle>
           <DialogDescription>
-            Create a new budget category. Click save when you&apos;re done.
+            Choose a category to set a spending budget. These categories can
+            help you monitor spending.
           </DialogDescription>
         </DialogHeader>
 
