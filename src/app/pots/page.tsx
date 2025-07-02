@@ -4,7 +4,7 @@ import PotsCard from "../components/pots/pots-card";
 import { useGetPots, useGetTransactions } from "@/lib/queries/queries";
 import { useModalStore } from "@/lib/stores/modalStore";
 //TODO: when a new pot is added, i don't want the bar filling animation on the other pots
-// to run again, i want it to only run when the page is loaded 
+// to run again, i want it to only run when the page is loaded
 
 const PotsPage = () => {
   const { data: pots = [] } = useGetPots();
@@ -34,6 +34,7 @@ const PotsPage = () => {
             target={pot.target}
             total={potTotals[pot.id] || 0}
             theme={pot.theme}
+            id={pot.id}
           />
         ))}
       </div>

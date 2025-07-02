@@ -7,7 +7,15 @@ import {
 import { Ellipsis } from "lucide-react";
 import { useModalStore } from "@/lib/stores/modalStore";
 //TODO: hook ellipsis up to a dropdown menu
-const DotHeading = ({ label, colour }: { label: string; colour: string }) => {
+const DotHeading = ({
+  label,
+  colour,
+  id,
+}: {
+  label: string;
+  colour: string;
+  id: string;
+}) => {
   const { openModal } = useModalStore();
 
   return (
@@ -33,7 +41,9 @@ const DotHeading = ({ label, colour }: { label: string; colour: string }) => {
           <DropdownMenuItem onClick={() => console.log("Edit")}>
             Edit
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => openModal("DELETE_POT")}>
+          <DropdownMenuItem
+            onClick={() => openModal("DELETE_POT", { id, name: label })}
+          >
             Delete
           </DropdownMenuItem>
         </DropdownMenuContent>

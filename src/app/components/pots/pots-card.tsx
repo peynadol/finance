@@ -3,15 +3,16 @@ import PotButtonContainer from "./pot-button-container";
 import PotsCardProgress from "./pots-card-progress";
 
 type PotsCardProps = {
+  id: string;
   name: string;
   total: number;
   target: number;
-  theme?: string;
+  theme: string;
 };
-const PotsCard = ({ name, total, target, theme }: PotsCardProps) => {
+const PotsCard = ({ name, total, target, theme, id }: PotsCardProps) => {
   return (
     <div className="bg-white w-full p-6 space-y-4 rounded">
-      <DotHeading label={name} colour={theme ?? ""} />
+      <DotHeading label={name} colour={theme} id={id} />
       <PotsCardProgress target={target} total={total} theme={theme} />
       <PotButtonContainer />
     </div>

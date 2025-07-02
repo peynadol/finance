@@ -8,17 +8,23 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useModalStore } from "@/lib/stores/modalStore";
-import { AddPotSchema } from "@/lib/schemas/pot";
-import { AddPotForm } from "../forms/add-pot-form";
+import { useDeletePot } from "@/lib/queries/queries";
 
 export function DeletePotModal() {
-  const { isOpen, closeModal } = useModalStore();
+  const { isOpen, closeModal, modalData } = useModalStore();
   const isAddOpen = isOpen("DELETE_POT");
+  const deletePot = useDeletePot();
 
   const handleSubmit = () => {
-    // here i should call an api/ mutation to save the pot
-    console.log("Deleting pot:");
-    closeModal();
+    if (!modalData?.id) return;
+    deletePot.mutate(modalData.id, {
+      onSuccess: () => {
+        closeModal();
+      },
+      onError: (err) => {
+        console.error("Failed to delete pot:", err);
+      },
+    });
   };
 
   return (

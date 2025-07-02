@@ -64,3 +64,17 @@ export const useCreatePot = () => {
     },
   });
 };
+
+export const useDeletePot = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (id: string) => {
+      const { error } = await supabase.from("pots").delete().eq("id", id);
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["pots"] });
+    },
+  });
+};

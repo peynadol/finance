@@ -3,13 +3,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { DialogFooter, DialogClose } from "@/components/ui/dialog";
 import { Themes } from "@/lib/constants/themes";
 import { addPotSchema, type AddPotSchema } from "@/lib/schemas/pot";
+import { useState } from "react";
+// TODO: think about a more elegant way to prevent multiple submissions
+// and make it more reusable across forms
 
 type AddPotFormProps = {
   onSubmit: (data: AddPotSchema) => void;
   onCancel?: () => void;
+  isPending?: boolean;
 };
 
-export function AddPotForm({ onSubmit, onCancel }: AddPotFormProps) {
+export function AddPotForm({ onSubmit, onCancel, isPending }: AddPotFormProps) {
   const {
     register,
     handleSubmit,
@@ -24,12 +28,14 @@ export function AddPotForm({ onSubmit, onCancel }: AddPotFormProps) {
       target_date: "",
     },
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const selectedThemeColor =
     Themes.find((t) => t.value === watch("theme"))?.color ?? "";
 
   const handleFormSubmit = (data: AddPotSchema) => {
-    console.log("Pot data submitted:", data);
+    if (isSubmitting) return;
+    setIsSubmitting(true);
     onSubmit(data);
   };
 
@@ -127,9 +133,10 @@ export function AddPotForm({ onSubmit, onCancel }: AddPotFormProps) {
         )}
         <button
           type="submit"
-          className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary/90"
+          disabled={isPending || isSubmitting}
+          className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          Save Pot
+          {isPending || isSubmitting ? "Saving..." : "Save Pot"}
         </button>
       </DialogFooter>
     </form>

@@ -17,10 +17,15 @@ export function AddPotModal() {
   const addPot = useCreatePot();
 
   const handleSubmit = (data: AddPotSchema) => {
-    // here i should call an api/ mutation to save the pot
-    console.log("Submitting pot:", data);
-    addPot.mutate(data);
-    closeModal();
+    addPot.mutate(data, {
+      onSuccess: () => {
+        closeModal();
+      },
+      onError: (error) => {
+        console.error("Failed to add pot:", error.message);
+        // maybe show a toast or message to the user
+      },
+    });
   };
 
   return (
@@ -34,7 +39,11 @@ export function AddPotModal() {
           </DialogDescription>
         </DialogHeader>
 
-        <AddPotForm onSubmit={handleSubmit} onCancel={closeModal} />
+        <AddPotForm
+          onSubmit={handleSubmit}
+          onCancel={closeModal}
+          isPending={addPot.isPending}
+        />
       </DialogContent>
     </Dialog>
   );
