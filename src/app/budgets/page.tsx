@@ -4,16 +4,20 @@ import { AppButton } from "../components/app-button";
 import BudgetsOverviewContainer from "../components/budgets-overview-container";
 import BudgetPageOverviewContainer from "../components/budgets/budget-page-overview-container";
 import { useGetBudgets, useGetTransactions } from "@/lib/queries/queries";
+import { useModalStore } from "@/lib/stores/modalStore";
 
 const BudgetsPage = () => {
   const { data: budgets = [] } = useGetBudgets();
   const { data: transactions = [] } = useGetTransactions();
+  const { openModal } = useModalStore();
 
   return (
     <div className="w-full max-w-screen-xl px-6 py-8 mx-auto">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-preset-1">Budgets</h2>
-        <AppButton>+ Add New Budget</AppButton>
+        <AppButton onClick={() => openModal("ADD_BUDGET")}>
+          + Add New Budget
+        </AppButton>
       </div>
 
       <div className="grid grid-cols-[1.5fr_2fr] gap-4">

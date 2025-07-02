@@ -4,7 +4,7 @@ import { BillsTable } from "../components/recurring-bills/recurring-data-table";
 import { columns, Bill } from "../components/recurring-bills/recurring-columns";
 import TotalBillsCard from "../components/recurring-bills/total-bills-card";
 import SummaryContainer from "../components/recurring-bills/summary-container";
-import { useStore } from "@/lib/useStore";
+import { useStore } from "@/lib/stores/useStore";
 import { useGetTransactions } from "@/lib/queries/queries";
 
 //TODO: IMPORT ASSETS

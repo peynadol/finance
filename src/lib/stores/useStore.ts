@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import data from "../../data.json";
+import data from "../../../data.json";
 type Balance = typeof data.balance;
 type Transaction = (typeof data.transactions)[number];
 type Budget = (typeof data.budgets)[number];

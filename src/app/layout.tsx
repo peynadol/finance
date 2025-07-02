@@ -4,6 +4,7 @@ import "./globals.css";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "./components/app-sidebar";
 import { Providers } from "./providers";
+import { AddBudgetModal } from "./components/modals/add-budget-modal";
 
 const publicSans = Public_Sans({
   variable: "--font-public-sans",
@@ -32,6 +33,7 @@ export default function RootLayout({
               </Providers>
             </main>
           </div>
+          <AddBudgetModal />
         </SidebarProvider>
       </body>
     </html>
