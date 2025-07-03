@@ -6,6 +6,7 @@ import { DataTable } from "@/app/components/transactions/data-table";
 import { useGetTransactions } from "@/lib/queries/queries";
 import { AppButton } from "../components/app-button";
 import { useModalStore } from "@/lib/stores/modalStore";
+import TransactionsTableSkeleton from "../components/skeletons/transactions-table-skeleton";
 
 const TransactionsPage = () => {
   const { data: transactions = [], isLoading } = useGetTransactions();
@@ -29,7 +30,11 @@ const TransactionsPage = () => {
 
       {/* Table Container */}
       <div className="bg-white rounded-lg w-full p-4  ">
-        <DataTable columns={columns} data={transactions} />
+        {isLoading ? (
+          <TransactionsTableSkeleton />
+        ) : (
+          <DataTable columns={columns} data={transactions} />
+        )}
       </div>
     </div>
   );
