@@ -66,18 +66,24 @@ export default function Home() {
       {/* Lower Grid */}
       <div className="grid grid-cols-1 md:grid-cols-[1.50fr_0.50fr] gap-6 items-stretch">
         {/* Left Column */}
-        <div className="flex flex-col justify-between h-full space-y-6">
-          {isLoading ? (
-            <PotsPreviewSkeleton />
-          ) : (
-            <PotOverviewContainer pots={pots} transactions={transactions} />
-          )}
 
-          {isLoading ? (
-            <TransactionsPreviewSkeleton />
-          ) : (
-            <OverviewTransactionContainer transactions={transactions} />
-          )}
+        <div className="flex flex-col justify-between h-full space-y-6">
+          {/* Pots  Overview */}
+          <div data-testid="pots-overview-card">
+            {isLoading ? (
+              <PotsPreviewSkeleton />
+            ) : (
+              <PotOverviewContainer pots={pots} transactions={transactions} />
+            )}
+          </div>
+          {/* Transactions Overview */}
+          <div data-testid="transactions-overview-card">
+            {isLoading ? (
+              <TransactionsPreviewSkeleton />
+            ) : (
+              <OverviewTransactionContainer transactions={transactions} />
+            )}
+          </div>
         </div>
 
         {/* Right Column */}
