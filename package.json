@@ -38,6 +38,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@playwright/test": "^1.53.2",
     "@tailwindcss/postcss": "^4",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
@@ -56,5 +57,4 @@
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.2.4"
   }
- 
 }
