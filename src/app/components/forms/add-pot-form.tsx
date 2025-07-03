@@ -3,7 +3,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { DialogFooter, DialogClose } from "@/components/ui/dialog";
 import { Themes } from "@/lib/constants/themes";
 import { addPotSchema, type AddPotSchema } from "@/lib/schemas/pot";
-import { useState } from "react";
 // TODO: think about a more elegant way to prevent multiple submissions
 // and make it more reusable across forms
 
@@ -17,7 +16,7 @@ export function AddPotForm({ onSubmit, onCancel, isPending }: AddPotFormProps) {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     watch,
   } = useForm<AddPotSchema>({
     resolver: zodResolver(addPotSchema),
@@ -28,14 +27,12 @@ export function AddPotForm({ onSubmit, onCancel, isPending }: AddPotFormProps) {
       target_date: "",
     },
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const selectedThemeColor =
     Themes.find((t) => t.value === watch("theme"))?.color ?? "";
 
   const handleFormSubmit = (data: AddPotSchema) => {
     if (isSubmitting) return;
-    setIsSubmitting(true);
     onSubmit(data);
   };
 
