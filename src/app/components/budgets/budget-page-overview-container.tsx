@@ -8,6 +8,7 @@ import DotHeading from "./dot-heading";
 
 type BudgetPageOverviewContainerProps = {
   budget: {
+    id: string;
     category: string;
     maximum: number;
     theme: string;
@@ -29,7 +30,11 @@ const BudgetPageOverviewContainer = ({
 }: BudgetPageOverviewContainerProps) => {
   return (
     <div className="bg-white rounded p-8 space-y-4">
-      <DotHeading label={budget.category} colour={budget.theme} />
+      <DotHeading
+        id={budget.id}
+        label={budget.category}
+        colour={budget.theme}
+      />
       <p className="text-preset-4 text-grey-500">
         Maximum of £{budget.maximum}
       </p>

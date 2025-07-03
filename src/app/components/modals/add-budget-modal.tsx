@@ -9,16 +9,24 @@ import {
 import { useModalStore } from "@/lib/stores/modalStore";
 import { AddBudgetForm } from "../forms/add-budget-form";
 import { AddBudgetSchema } from "@/lib/schemas/budget";
+import { useCreateBudget } from "@/lib/queries/queries";
 
 export function AddBudgetModal() {
   const { isOpen, closeModal, modalData } = useModalStore();
   const isAddOpen = isOpen("ADD_BUDGET");
   const transactionCategories = modalData?.transactionCategories || [];
+  const addBudget = useCreateBudget();
 
   const handleSubmit = (data: AddBudgetSchema) => {
-    // here i should call an api/ mutation to save the budget
-    console.log("Submitting budget:", data);
-    closeModal();
+    addBudget.mutate(data, {
+      onSuccess: () => {
+        closeModal();
+      },
+      onError: (error) => {
+        console.error("Failed to add budget:", error.message);
+        // maybe show a toast or message to the user
+      },
+    });
   };
 
   return (

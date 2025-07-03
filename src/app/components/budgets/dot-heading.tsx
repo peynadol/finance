@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Ellipsis } from "lucide-react";
 import { useModalStore } from "@/lib/stores/modalStore";
+import { usePathname } from "next/navigation";
 //TODO: hook ellipsis up to a dropdown menu
 const DotHeading = ({
   label,
@@ -17,6 +18,7 @@ const DotHeading = ({
   id: string;
 }) => {
   const { openModal } = useModalStore();
+  const pathname = usePathname(); // used to determine which modal to open
 
   return (
     <div className="flex items-center gap-2 justify-between">
@@ -42,7 +44,13 @@ const DotHeading = ({
             Edit
           </DropdownMenuItem>
           <DropdownMenuItem
-            onClick={() => openModal("DELETE_POT", { id, name: label })}
+            onClick={() => {
+              if (pathname.startsWith("/budgets")) {
+                openModal("DELETE_BUDGET", { id, name: label });
+              } else if (pathname.startsWith("/pots")) {
+                openModal("DELETE_POT", { id, name: label });
+              }
+            }}
           >
             Delete
           </DropdownMenuItem>
