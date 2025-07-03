@@ -3,19 +3,20 @@
 import { AppButton } from "../components/app-button";
 import BudgetsOverviewContainer from "../components/budgets-overview-container";
 import BudgetPageOverviewContainer from "../components/budgets/budget-page-overview-container";
+import { BudgetsCardSkeleton } from "../components/skeletons/budgets-card-skeleton";
 import { useGetBudgets, useGetTransactions } from "@/lib/queries/queries";
 import { useModalStore } from "@/lib/stores/modalStore";
 
 const BudgetsPage = () => {
-  const { data: budgets = [] } = useGetBudgets();
-  const { data: transactions = [] } = useGetTransactions();
+  const { data: budgets = [], isLoading: budgetsLoading } = useGetBudgets();
+  const { data: transactions = [], isLoading: transactionsLoading } =
+    useGetTransactions();
   const { openModal } = useModalStore();
+
+  const isLoading = budgetsLoading || transactionsLoading;
+
   const transactionCategories = Array.from(
     new Set(transactions.map((tx) => tx.category))
-  );
-  console.log(
-    "Transaction Categories from budget page:",
-    transactionCategories
   );
 
   return (
@@ -30,7 +31,7 @@ const BudgetsPage = () => {
       </div>
 
       <div className="grid grid-cols-[1.5fr_2fr] gap-4">
-        {/* Left column: Pie chart summary */}
+        {/* Left column */}
         <div className="flex-1">
           <BudgetsOverviewContainer
             variant="budgets"
@@ -39,36 +40,41 @@ const BudgetsPage = () => {
           />
         </div>
 
-        {/* Right column: List of individual budget summaries */}
+        {/* Right column */}
         <div className="flex flex-col gap-4 w-full">
-          {budgets.map((budget, index) => {
-            const matchingTransactions = transactions
-              .filter((tx) => tx.category === budget.category)
-              .sort(
-                (a, b) =>
-                  new Date(b.date).getTime() - new Date(a.date).getTime()
+          {isLoading ? (
+            <>
+              <BudgetsCardSkeleton />
+              <BudgetsCardSkeleton />
+            </>
+          ) : (
+            budgets.map((budget, index) => {
+              const matchingTransactions = transactions
+                .filter((tx) => tx.category === budget.category)
+                .sort(
+                  (a, b) =>
+                    new Date(b.date).getTime() - new Date(a.date).getTime()
+                );
+
+              const spent = matchingTransactions.reduce(
+                (sum, tx) => sum + Math.abs(tx.amount),
+                0
               );
+              const remaining = Math.max(0, budget.maximum - spent);
+              const latestTransactions = matchingTransactions.slice(0, 3);
 
-            const spent = matchingTransactions.reduce(
-              (sum, tx) => sum + Math.abs(tx.amount),
-              0
-            );
-
-            const remaining = Math.max(0, budget.maximum - spent);
-
-            const latestTransactions = matchingTransactions.slice(0, 3);
-
-            return (
-              <BudgetPageOverviewContainer
-                key={index}
-                budget={budget}
-                spent={spent}
-                remaining={remaining}
-                latestTransactions={latestTransactions}
-                transactionCategories={transactionCategories}
-              />
-            );
-          })}
+              return (
+                <BudgetPageOverviewContainer
+                  key={index}
+                  budget={budget}
+                  spent={spent}
+                  remaining={remaining}
+                  latestTransactions={latestTransactions}
+                  transactionCategories={transactionCategories}
+                />
+              );
+            })
+          )}
         </div>
       </div>
     </div>
