@@ -9,7 +9,7 @@ import PotsPreviewSkeleton from "./components/skeletons/pots-preview-skeleton";
 import RecurringBillsPreviewSkeleton from "./components/skeletons/recurring-bills-preview-skeleton";
 import TransactionsPreviewSkeleton from "./components/skeletons/transactions-preview-skeleton";
 import SummaryCard from "./components/summary-card";
-
+//TODO: skeletons for this page aren't quite 1 to 1 in terms of positioning
 import {
   useGetTransactions,
   useGetBudgets,
