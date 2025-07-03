@@ -3,13 +3,19 @@ import { AppButton } from "../components/app-button";
 import PotsCard from "../components/pots/pots-card";
 import { useGetPots, useGetTransactions } from "@/lib/queries/queries";
 import { useModalStore } from "@/lib/stores/modalStore";
+import { PotsCardSkeleton } from "../components/skeletons/pots-card-skeleton";
 //TODO: when a new pot is added, i don't want the bar filling animation on the other pots
 // to run again, i want it to only run when the page is loaded
 
 const PotsPage = () => {
-  const { data: pots = [] } = useGetPots();
-  const { data: transactions = [] } = useGetTransactions();
+  const { data: pots = [], isLoading: isPotsLoading } = useGetPots();
+
+  const { data: transactions = [], isLoading: isTransactionsLoading } =
+    useGetTransactions();
+
   const { openModal } = useModalStore();
+
+  const isLoading = isPotsLoading || isTransactionsLoading;
 
   const potTotals: Record<string, number> = pots.reduce((acc, pot) => {
     const total = transactions.reduce((sum, transaction) => {
@@ -26,18 +32,18 @@ const PotsPage = () => {
           + Add New Pot
         </AppButton>
       </div>
+
       <div className="grid grid-cols-2 gap-4">
-        {pots.map((pot) => (
-          <PotsCard
-            key={pot.id}
-            // spread all pot properties and inject the running total from potTotals
-            // if no total exists yet for this pot ID, default to 0
-            pot={{ ...pot, total: potTotals[pot.id] || 0 }}
-          />
-        ))}
+        {isLoading
+          ? [1, 2, 3].map((i) => <PotsCardSkeleton key={i} />)
+          : pots.map((pot) => (
+              <PotsCard
+                key={pot.id}
+                pot={{ ...pot, total: potTotals[pot.id] || 0 }}
+              />
+            ))}
       </div>
     </div>
   );
 };
-
 export default PotsPage;
