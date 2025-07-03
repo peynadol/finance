@@ -20,6 +20,19 @@ export const useGetTransactions = () => {
   });
 };
 
+export const useCreateTransaction = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (data: Transaction) => {
+      const { error } = await supabase.from("transactions").insert(data);
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["transactions"] });
+    },
+  });
+};
 
 export const useGetBudgets = () => {
   return useQuery({

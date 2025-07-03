@@ -9,6 +9,7 @@ import {
 import { useModalStore } from "@/lib/stores/modalStore";
 import { AddTransactionSchema } from "@/lib/schemas/transactions";
 import { AddTransactionForm } from "../forms/add-transaction-form";
+import { useCreateTransaction } from "@/lib/queries/queries";
 
 export function AddTransactionModal() {
   const { isOpen, closeModal, modalData } = useModalStore();
@@ -17,11 +18,18 @@ export function AddTransactionModal() {
   const uniqueCategories = Array.from(
     new Set(transactionCategories)
   ) as string[];
+  const createTransaction = useCreateTransaction();
 
   const handleSubmit = (data: AddTransactionSchema) => {
-    // here i should call an api/ mutation to save the transaction
-    console.log("Submitting transaction:", data);
-    closeModal();
+    createTransaction.mutate(data, {
+      onSuccess: () => {
+        closeModal();
+      },
+      onError: (error) => {
+        console.error("Failed to add transaction:", error.message);
+        // maybe show a toast or message to the user
+      },
+    });
   };
 
   return (
