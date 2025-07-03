@@ -3,14 +3,18 @@ import BudgetsOverviewContainer from "./components/budgets-overview-container";
 import OverviewRecurringBillContainer from "./components/overview-recurring-bill-container";
 import OverviewTransactionContainer from "./components/overview-transaction-container";
 import PotOverviewContainer from "./components/pot-overview-container";
+import BalanceSummarySkeleton from "./components/skeletons/balance-summary-skeleton";
+import BudgetsPreviewSkeleton from "./components/skeletons/budgets-preview-skeleton";
+import PotsPreviewSkeleton from "./components/skeletons/pots-preview-skeleton";
+import RecurringBillsPreviewSkeleton from "./components/skeletons/recurring-bills-preview-skeleton";
+import TransactionsPreviewSkeleton from "./components/skeletons/transactions-preview-skeleton";
 import SummaryCard from "./components/summary-card";
+
 import {
   useGetTransactions,
   useGetBudgets,
   useGetPots,
 } from "@/lib/queries/queries";
-//TODO: the budget component needs to be full height on dashboard, but not on budgets page
-//TODO: it also needs to change orientation on the budgets page
 
 export default function Home() {
   const { data: transactions = [], isLoading: isLoadingTransactions } =
@@ -38,31 +42,59 @@ export default function Home() {
     { id: "expense", label: "Expenses", amount: totalExpenses },
   ];
   return (
-    <div className="mx-auto max-w-screen-xl px-6 space-y-6 ">
+    <div className="mx-auto max-w-screen-xl px-6 space-y-6">
       <h1 className="text-preset-1">Overview</h1>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {summaryItems.map((item) => (
-          <SummaryCard key={item.id} label={item.label} amount={item.amount} />
-        ))}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 outline outline-1-red-500">
+        {isLoading ? (
+          <BalanceSummarySkeleton />
+        ) : (
+          summaryItems.map((item) => (
+            <SummaryCard
+              key={item.id}
+              label={item.label}
+              amount={item.amount}
+            />
+          ))
+        )}
       </div>
 
       {/* Lower Grid */}
       <div className="grid grid-cols-1 md:grid-cols-[1.50fr_0.50fr] gap-6 items-stretch">
         {/* Left Column */}
         <div className="flex flex-col justify-between h-full space-y-6">
-          <PotOverviewContainer pots={pots} transactions={transactions} />
-          <OverviewTransactionContainer transactions={transactions} />
+          {isLoading ? (
+            <PotsPreviewSkeleton />
+          ) : (
+            <PotOverviewContainer pots={pots} transactions={transactions} />
+          )}
+
+          {isLoading ? (
+            <TransactionsPreviewSkeleton />
+          ) : (
+            <OverviewTransactionContainer transactions={transactions} />
+          )}
         </div>
 
         {/* Right Column */}
-        <div className="flex flex-col gap-6 ">
+        <div className="flex flex-col gap-6">
           <div className="grow">
-            <BudgetsOverviewContainer budgets={budgets} transactions={transactions} />
+            {isLoading ? (
+              <BudgetsPreviewSkeleton />
+            ) : (
+              <BudgetsOverviewContainer
+                budgets={budgets}
+                transactions={transactions}
+              />
+            )}
           </div>
           <div className="shrink-0">
-            <OverviewRecurringBillContainer recurringBills={recurringBills} />
+            {isLoading ? (
+              <RecurringBillsPreviewSkeleton />
+            ) : (
+              <OverviewRecurringBillContainer recurringBills={recurringBills} />
+            )}
           </div>
         </div>
       </div>
