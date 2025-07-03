@@ -6,6 +6,7 @@ import BudgetPageOverviewContainer from "../components/budgets/budget-page-overv
 import { BudgetsCardSkeleton } from "../components/skeletons/budgets-card-skeleton";
 import { useGetBudgets, useGetTransactions } from "@/lib/queries/queries";
 import { useModalStore } from "@/lib/stores/modalStore";
+import BudgetSummarySkeleton from "../components/skeletons/budet-summary-skeleton";
 
 const BudgetsPage = () => {
   const { data: budgets = [], isLoading: budgetsLoading } = useGetBudgets();
@@ -33,11 +34,15 @@ const BudgetsPage = () => {
       <div className="grid grid-cols-[1.5fr_2fr] gap-4">
         {/* Left column */}
         <div className="flex-1">
-          <BudgetsOverviewContainer
-            variant="budgets"
-            budgets={budgets}
-            transactions={transactions}
-          />
+          {isLoading ? (
+            <BudgetSummarySkeleton />
+          ) : (
+            <BudgetsOverviewContainer
+              variant="budgets"
+              budgets={budgets}
+              transactions={transactions}
+            />
+          )}
         </div>
 
         {/* Right column */}
