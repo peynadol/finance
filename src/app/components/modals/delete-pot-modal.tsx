@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { useModalStore } from "@/lib/stores/modalStore";
 import { useDeletePot } from "@/lib/queries/queries";
+import { AppButton } from "../app-button";
 
 export function DeletePotModal() {
   const { isOpen, closeModal, modalData } = useModalStore();
@@ -39,9 +40,13 @@ export function DeletePotModal() {
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <div>
-            <button onClick={handleSubmit}>Confirm</button>
-            <button onClick={closeModal}>Cancel</button>
+          <div className="flex flex-col justify-between w-full gap-2">
+            <AppButton onClick={handleSubmit} variant="destroy">
+              Confirm
+            </AppButton>
+            <AppButton onClick={closeModal} variant="secondary">
+              Cancel
+            </AppButton>
           </div>
         </DialogFooter>
       </DialogContent>
