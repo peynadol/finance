@@ -5,14 +5,10 @@ import OverviewSummaryCard from "../overview-summary-card";
 import BudgetBar from "./budget-bar";
 import LatestSpendingCard from "./latest-spending-card";
 import DotHeading from "./dot-heading";
+import { Budget } from "@/lib/types";
 
 type BudgetPageOverviewContainerProps = {
-  budget: {
-    id: string;
-    category: string;
-    maximum: number;
-    theme: string;
-  };
+  budget: Budget;
   spent: number;
   remaining: number;
   latestTransactions: {
@@ -20,6 +16,7 @@ type BudgetPageOverviewContainerProps = {
     amount: number;
     date: string;
   }[];
+  transactionCategories?: string[];
 };
 
 const BudgetPageOverviewContainer = ({
@@ -27,14 +24,12 @@ const BudgetPageOverviewContainer = ({
   spent,
   remaining,
   latestTransactions,
+  transactionCategories,
 }: BudgetPageOverviewContainerProps) => {
+  console.log("BudgetPageOverviewContainer:", transactionCategories);
   return (
     <div className="bg-white rounded p-8 space-y-4">
-      <DotHeading
-        id={budget.id}
-        label={budget.category}
-        colour={budget.theme}
-      />
+      <DotHeading data={budget} transactionCategories={transactionCategories} />
       <p className="text-preset-4 text-grey-500">
         Maximum of £{budget.maximum}
       </p>

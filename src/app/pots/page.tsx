@@ -27,14 +27,12 @@ const PotsPage = () => {
         </AppButton>
       </div>
       <div className="grid grid-cols-2 gap-4">
-        {pots.map((pot, index) => (
+        {pots.map((pot) => (
           <PotsCard
-            key={index}
-            name={pot.name}
-            target={pot.target}
-            total={potTotals[pot.id] || 0}
-            theme={pot.theme}
-            id={pot.id}
+            key={pot.id}
+            // spread all pot properties and inject the running total from potTotals
+            // if no total exists yet for this pot ID, default to 0
+            pot={{ ...pot, total: potTotals[pot.id] || 0 }}
           />
         ))}
       </div>

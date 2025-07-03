@@ -8,12 +8,14 @@ type AddBudgetFormProps = {
   onSubmit: (data: AddBudgetSchema) => void;
   onCancel?: () => void;
   transactionCategories: string[];
+  defaultValues?: Partial<AddBudgetSchema>;
 };
 
 export function AddBudgetForm({
   onSubmit,
   onCancel,
   transactionCategories,
+  defaultValues,
 }: AddBudgetFormProps) {
   const form = useForm<AddBudgetSchema>({
     resolver: zodResolver(addBudgetSchema),
@@ -23,6 +25,7 @@ export function AddBudgetForm({
       theme: "",
       start_date: "",
       end_date: "",
+      ...defaultValues,
     },
   });
 

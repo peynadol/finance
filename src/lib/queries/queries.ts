@@ -94,6 +94,22 @@ export const useDeletePot = () => {
   });
 };
 
+export const useEditPot = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (data: AddPotSchema & { id: string }) => {
+      const { id, ...values } = data;
+      const { error } = await supabase.from("pots").update(values).eq("id", id);
+
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["pots"] });
+    },
+  });
+};
+
 export const useCreateBudget = () => {
   const queryClient = useQueryClient();
 
@@ -114,6 +130,25 @@ export const useDeleteBudget = () => {
   return useMutation({
     mutationFn: async (id: string) => {
       const { error } = await supabase.from("budgets").delete().eq("id", id);
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["budgets"] });
+    },
+  });
+};
+
+export const useEditBudget = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (data: AddBudgetSchema & { id: string }) => {
+      const { id, ...values } = data;
+      const { error } = await supabase
+        .from("budgets")
+        .update(values)
+        .eq("id", id);
+
       if (error) throw error;
     },
     onSuccess: () => {

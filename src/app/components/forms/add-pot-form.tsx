@@ -10,9 +10,15 @@ type AddPotFormProps = {
   onSubmit: (data: AddPotSchema) => void;
   onCancel?: () => void;
   isPending?: boolean;
+  defaultValues?: Partial<AddPotSchema>;
 };
 
-export function AddPotForm({ onSubmit, onCancel, isPending }: AddPotFormProps) {
+export function AddPotForm({
+  onSubmit,
+  onCancel,
+  isPending,
+  defaultValues,
+}: AddPotFormProps) {
   const {
     register,
     handleSubmit,
@@ -25,6 +31,7 @@ export function AddPotForm({ onSubmit, onCancel, isPending }: AddPotFormProps) {
       target: 0,
       theme: "",
       target_date: "",
+      ...defaultValues,
     },
   });
 

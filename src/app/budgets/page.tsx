@@ -13,13 +13,18 @@ const BudgetsPage = () => {
   const transactionCategories = Array.from(
     new Set(transactions.map((tx) => tx.category))
   );
-  console.log("Transaction Categories:", transactionCategories);
+  console.log(
+    "Transaction Categories from budget page:",
+    transactionCategories
+  );
 
   return (
     <div className="w-full max-w-screen-xl px-6 py-8 mx-auto">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-preset-1">Budgets</h2>
-        <AppButton onClick={() => openModal("ADD_BUDGET", { transactionCategories })}>
+        <AppButton
+          onClick={() => openModal("ADD_BUDGET", { transactionCategories })}
+        >
           + Add New Budget
         </AppButton>
       </div>
@@ -60,6 +65,7 @@ const BudgetsPage = () => {
                 spent={spent}
                 remaining={remaining}
                 latestTransactions={latestTransactions}
+                transactionCategories={transactionCategories}
               />
             );
           })}
