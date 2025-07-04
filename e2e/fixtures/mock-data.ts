@@ -50,12 +50,12 @@ export const mockPots = [
 export const mockBudgets = [
   {
     id: "1",
-    name: "Groceries",
-    amount: 500,
+    category: "Groceries",
+    maximum: 500,
   },
   {
     id: "2",
-    name: "Utilities",
-    amount: 200,
+    category: "Utilities",
+    maximum: 200,
   },
 ];
