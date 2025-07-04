@@ -23,9 +23,39 @@ export const mockTransactions = [
     category: "Vacation Savings",
     date: "2025-07-03",
   },
+  {
+    id: "4",
+    name: "Utility Bill",
+    amount: 150,
+    type: "expense",
+    category: "Utilities",
+    date: "2025-07-04",
+    recurring: true,
+  },
+  {
+    id: "5",
+    name: "Groceries",
+    amount: 100,
+    type: "expense",
+    category: "Groceries",
+    date: "2025-07-05",
+  },
 ];
 
 export const mockPots = [
   { id: "1", name: "Emergency Fund", amount: 300 },
   { id: "2", name: "Vacation Savings", amount: 200 },
+];
+
+export const mockBudgets = [
+  {
+    id: "1",
+    name: "Groceries",
+    amount: 500,
+  },
+  {
+    id: "2",
+    name: "Utilities",
+    amount: 200,
+  },
 ];

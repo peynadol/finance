@@ -88,7 +88,7 @@ export default function Home() {
 
         {/* Right Column */}
         <div className="flex flex-col gap-6">
-          <div className="grow">
+          <div data-testid="budgets-overview-card" className="grow">
             {isLoading ? (
               <BudgetsPreviewSkeleton />
             ) : (
@@ -98,7 +98,7 @@ export default function Home() {
               />
             )}
           </div>
-          <div className="shrink-0">
+          <div data-testid="recurring-bills-overview-card" className="shrink-0">
             {isLoading ? (
               <RecurringBillsPreviewSkeleton />
             ) : (
