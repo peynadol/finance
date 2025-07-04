@@ -19,7 +19,6 @@ export const columns: ColumnDef<Bill>[] = [
     ),
     cell: ({ row }) => {
       const name = row.getValue("name") as string;
-      const avatar = row.original.avatar;
 
       return (
         <div className="flex items-center gap-2">

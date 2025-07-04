@@ -1,7 +1,6 @@
 "use client";
 
 import { Cell, Pie, PieChart, Tooltip } from "recharts";
-//TODO: GET TOOLTIP WORKING PROPERLY ON OUTER PIE
 type BudgetPieChartProps = {
   data: {
     name: string;

@@ -10,14 +10,15 @@ import {
 import { useModalStore } from "@/lib/stores/modalStore";
 import { useEditBudget } from "@/lib/queries/queries";
 import { AddBudgetForm } from "../forms/add-budget-form";
+import { AddBudgetSchema } from "@/lib/schemas/budget";
 
 export function EditBudgetModal() {
   const { isOpen, closeModal, modalData } = useModalStore();
   const isEditOpen = isOpen("EDIT_BUDGET");
   const editBudget = useEditBudget();
-  const { transactionCategories = [], ...defaultValues } = modalData || {};
+  const { transactionCategories = [] } = modalData || {};
 
-  const handleSubmit = (data: any) => {
+  const handleSubmit = (data: AddBudgetSchema) => {
     if (!modalData?.id) return;
     editBudget.mutate(
       { ...data, id: modalData.id },

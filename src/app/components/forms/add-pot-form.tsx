@@ -3,8 +3,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { DialogFooter, DialogClose } from "@/components/ui/dialog";
 import { Themes } from "@/lib/constants/themes";
 import { addPotSchema, type AddPotSchema } from "@/lib/schemas/pot";
-// TODO: think about a more elegant way to prevent multiple submissions
-// and make it more reusable across forms
 
 type AddPotFormProps = {
   onSubmit: (data: AddPotSchema) => void;

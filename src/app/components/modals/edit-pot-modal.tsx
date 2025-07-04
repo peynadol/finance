@@ -9,14 +9,15 @@ import {
 } from "@/components/ui/dialog";
 import { useModalStore } from "@/lib/stores/modalStore";
 import { useEditPot } from "@/lib/queries/queries";
-import { AddPotForm } from "../forms/add-pot-form"; // reuse same form
+import { AddPotForm } from "../forms/add-pot-form";
+import { AddPotSchema } from "@/lib/schemas/pot";
 
 export function EditPotModal() {
   const { isOpen, closeModal, modalData } = useModalStore();
   const isEditOpen = isOpen("EDIT_POT");
   const editPot = useEditPot();
 
-  const handleSubmit = (data: any) => {
+  const handleSubmit = (data: AddPotSchema) => {
     if (!modalData?.id) return;
     editPot.mutate(
       { ...data, id: modalData.id },

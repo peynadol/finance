@@ -1,4 +1,3 @@
-import App from "next/app";
 import React from "react";
 import { AppButton } from "../app-button";
 

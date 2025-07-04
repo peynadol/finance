@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DialogFooter, DialogClose } from "@/components/ui/dialog";
-import { Themes } from "@/lib/constants/themes";
 import {
   addTransactionSchema,
   AddTransactionSchema,

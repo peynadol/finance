@@ -2,7 +2,6 @@
 
 import { columns, Transaction } from "@/app/components/transactions/columns";
 import { DataTable } from "@/app/components/transactions/data-table";
-//TODO: IMPORT ASSETS
 import { useGetTransactions } from "@/lib/queries/queries";
 import { AppButton } from "../components/app-button";
 import { useModalStore } from "@/lib/stores/modalStore";

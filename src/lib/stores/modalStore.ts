@@ -2,8 +2,8 @@ import { create } from "zustand";
 
 type ModalStore = {
   activeModal: string | null;
-  modalData?: any; // needed for editing/ deleting modals
-  openModal: (modalName: string, data?: any) => void;
+  modalData?: unknown;
+  openModal: (modalName: string, data?: unknown) => void;
   closeModal: () => void;
   isOpen: (modalName: string) => boolean;
 };

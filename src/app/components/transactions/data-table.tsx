@@ -1,6 +1,4 @@
 "use client";
-//TODO: Need to figure out how to dynamically size the table based on the screen size
-//TODO: maybe add numbered pagination
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -33,12 +31,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ChevronDown } from "lucide-react";
 
-interface DataTableProps<TData, TValue> {
+interface DataTableProps<TData extends { category: string }, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 
-export function DataTable<TData, TValue>({
+export function DataTable<TData extends { category: string }, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
@@ -66,7 +64,7 @@ export function DataTable<TData, TValue>({
 
   // grabs unique categories from the data
   const uniqueCategories = Array.from(
-    new Set(data.map((item: any) => item.category))
+    new Set(data.map((item) => item.category))
   ).filter(Boolean);
 
   return (
