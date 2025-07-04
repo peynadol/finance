@@ -50,11 +50,13 @@ const BudgetPieChart = ({
           stroke="none"
           startAngle={90}
           endAngle={-270}
+          tooltipType={"none"}
         >
           {data.map((entry, index) => (
             <Cell key={`inner-${index}`} fill={entry.color} fillOpacity={0.7} />
           ))}
         </Pie>
+        <Tooltip />
       </PieChart>
 
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none">
