@@ -2,6 +2,7 @@ import { test, expect } from "@playwright/test";
 import { mockTransactionRoute } from "../utils/mockRoutes";
 import { mockTransactions } from "../fixtures/mock-data";
 // TODO: Add test for creating a new transaction
+// TODO: Need to figure out how to mock POST requests for adding a new transaction
 
 test("transactions table displays correct data", async ({ page }) => {
   await mockTransactionRoute(page);
@@ -70,4 +71,53 @@ test("sorts transactions a to z", async ({ page }) => {
   // check that the first transaction is now Salary
   const firstRow = page.locator("tbody tr").first();
   await expect(firstRow).toContainText("Emergency Top-Up");
+});
+
+test("add new transaction", async ({ page }) => {
+  await mockTransactionRoute(page);
+  await page.goto("/transactions");
+
+  const addButton = page.getByRole("button", { name: "+ Add Transaction" });
+  await expect(addButton).toBeVisible();
+  await addButton.click();
+
+  // confirm the modal is visible
+  const modal = page.getByRole("dialog", { name: "Add Transaction" });
+  await expect(modal).toBeVisible();
+
+  // fill in transaction name
+  const nameInput = modal.getByLabel("Transaction Name");
+  await expect(nameInput).toBeVisible();
+  await nameInput.fill("Test Transaction");
+
+  // fill in transaction amount
+  const amountInput = modal.getByLabel("Transaction Amount");
+  await expect(amountInput).toBeVisible();
+  await amountInput.fill("100");
+
+  // select transaction category
+  const categorySelect = modal.getByLabel("Category");
+  await expect(categorySelect).toBeVisible();
+  await categorySelect.selectOption("Groceries");
+
+  // select transaction type
+  const typeSelect = modal.getByLabel("Type");
+  await expect(typeSelect).toBeVisible();
+  await typeSelect.selectOption("expense");
+
+  // fill in transaction date
+  const dateInput = modal.getByLabel("Date");
+  await expect(dateInput).toBeVisible();
+  await dateInput.fill("2025-07-01");
+
+  // click the submit button
+  const submitButton = modal.getByRole("button", { name: "Add Transaction" });
+  await expect(submitButton).toBeVisible();
+  await submitButton.click();
+
+  // confirm the modal is closed
+  await expect(modal).toBeHidden();
+
+  // check that the new transaction is in the table
+  // await expect(page.getByText("Test Transaction")).toBeVisible();
 });
