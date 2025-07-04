@@ -9,12 +9,14 @@ describe("OverviewSummaryCard", () => {
       <OverviewSummaryCard
         name="Emergency Fund"
         amount={500}
-        colour="bg-blue-500"
+        colour="#ff0000"
       />
     );
 
     expect(screen.getByText("Emergency Fund")).toBeInTheDocument();
-    expect(screen.getByText("£500")).toBeInTheDocument();
-    expect(screen.getByTestId("colour-bar")).toHaveClass("bg-blue-500");
+    expect(screen.getByText(/£500/)).toBeInTheDocument();
+    expect(screen.getByTestId("colour-bar")).toHaveStyle({
+      backgroundColor: "#ff0000",
+    });
   });
 });

@@ -15,7 +15,7 @@ describe("OverviewTransactionCard", () => {
     );
 
     expect(screen.getByText("Emma Richardson")).toBeInTheDocument();
-    expect(screen.getByText("+£100")).toBeInTheDocument();
+    expect(screen.getByText("+£100.00")).toBeInTheDocument();
     expect(screen.getByText("19 Aug 2024")).toBeInTheDocument();
   });
 });
