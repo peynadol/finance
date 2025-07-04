@@ -2,7 +2,6 @@ import { test, expect } from "@playwright/test";
 import {
   mockTransactionRoute,
   mockPotsRoute,
-  mockBudgetsRoute,
 } from "../utils/mockRoutes";
 
 test("summary cards display correct balance values from transaction data", async ({

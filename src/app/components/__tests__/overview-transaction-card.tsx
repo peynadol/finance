@@ -10,6 +10,7 @@ describe("OverviewTransactionCard", () => {
         name="Emma Richardson"
         amount={100}
         date="19 Aug 2024"
+        type="income"
       />
     );
 
