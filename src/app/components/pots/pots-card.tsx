@@ -15,7 +15,6 @@ const PotsCard = ({ pot }: PotsCardProps) => {
         total={pot.total}
         theme={pot.theme}
       />
-      <PotButtonContainer />
     </div>
   );
 };
