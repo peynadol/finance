@@ -11,6 +11,7 @@ import { DeletePotModal } from "./components/modals/delete-pot-modal";
 import { DeleteBudgetModal } from "./components/modals/delete-budget-modal";
 import { EditPotModal } from "./components/modals/edit-pot-modal";
 import { EditBudgetModal } from "./components/modals/edit-budget.modal";
+import MobileNav from "./components/mobile-nav";
 
 const publicSans = Public_Sans({
   variable: "--font-public-sans",
@@ -38,6 +39,7 @@ export default function RootLayout({
                 <div className="w-full h-full">{children}</div>
               </main>
             </div>
+            <MobileNav />
             {/* Modals */}
             <AddBudgetModal />
             <AddPotModal />
