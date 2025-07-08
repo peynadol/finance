@@ -15,7 +15,7 @@ const BudgetBar = ({ colour, spent, maximum }: BudgetBarProps) => {
     return () => clearTimeout(timer);
   }, [newProgress]);
   return (
-    <div className="w-[500px]">
+    <div className="w-full md:w-[500px]">
       <Progress
         value={progress}
         colour={colour}
