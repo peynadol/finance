@@ -161,7 +161,7 @@ export function DataTable<TData extends { category: string }, TValue>({
           onChange={(event) =>
             table.getColumn("recipient")?.setFilterValue(event.target.value)
           }
-          className="max-w-sm"
+          className="w-full md:w-[210px] lg:max-w-sm"
         />
 
         {/* Desktop Filter & Sort */}

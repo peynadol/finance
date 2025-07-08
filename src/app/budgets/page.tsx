@@ -31,7 +31,7 @@ const BudgetsPage = () => {
         </AppButton>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-[1.5fr_2fr] gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_2fr] gap-4">
         {/* Left column */}
         <div className="flex-1">
           {isLoading ? (
