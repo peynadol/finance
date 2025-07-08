@@ -19,11 +19,13 @@ const TransactionsPage = () => {
       <div className="flex items-center justify-between ">
         <h2 className="text-preset-1">Transactions</h2>
         <AppButton
+          className="text-preset-4-bold"
           onClick={() =>
             openModal("ADD_TRANSACTION", { transactionCategories })
           }
         >
-          + Add Transaction
+          <span className="block md:hidden">+ Add</span>
+          <span className="hidden md:block">+ Add Transaction</span>
         </AppButton>
       </div>
 

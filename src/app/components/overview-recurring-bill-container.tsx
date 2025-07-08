@@ -48,7 +48,7 @@ const OverviewRecurringBillContainer = ({
   ];
 
   return (
-    <div className="bg-white rounded-lg p-8 min-w-[400px] ">
+    <div className="bg-white rounded-lg p-8  ">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-preset-2">Recurring Bills</h2>
         <Link

@@ -48,7 +48,7 @@ const PotOverviewContainer = ({
       </div>
 
       {/* Content */}
-      <div className="flex gap-6">
+      <div className="md:flex-row gap-6 flex flex-col">
         {/* Total Saved Section */}
         <div className="flex-1">
           <PotTotalCard total={totalSaved} />

@@ -36,7 +36,7 @@ export default function RootLayout({
             <div className="flex min-h-screen w-screen overflow-x-hidden">
               <AppSidebar />
               <main className="flex-1 min-w-0 w-full">
-                <div className="w-full h-full">{children}</div>
+                <div className="w-full h-full pb-24 md:pb-0">{children}</div>
               </main>
             </div>
             <MobileNav />

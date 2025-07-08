@@ -58,11 +58,10 @@ const BudgetsOverviewContainer = ({
       )}
 
       <div
-        className={`${
-          isHome
-            ? "flex flex-1 items-center gap-10 px-4"
-            : "flex flex-col items-center"
-        }`}
+        className={clsx(
+          "flex flex-col items-center gap-6",
+          isHome && "md:flex-row md:items-center md:gap-10 md:px-4"
+        )}
       >
         <div className="flex items-center justify-center mb-6">
           <BudgetPieChart
@@ -76,7 +75,13 @@ const BudgetsOverviewContainer = ({
           <h2 className="text-preset-2 mb-4 self-start">Spending Summary</h2>
         )}
 
-        <div className="space-y-4 w-full">
+        <div
+          className={clsx(
+            isHome
+              ? "grid grid-cols-2 gap-x-4 gap-y-6 w-full md:block md:space-y-4"
+              : "space-y-4 w-full"
+          )}
+        >
           {pieData.map((item) =>
             isHome ? (
               <OverviewSummaryCard
