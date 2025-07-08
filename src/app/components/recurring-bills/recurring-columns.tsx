@@ -1,5 +1,3 @@
-"use client";
-
 import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 
@@ -22,7 +20,9 @@ export const columns: ColumnDef<Bill>[] = [
 
       return (
         <div className="flex items-center gap-2">
-          <p className="text-preset-4-bold text-grey-900">{name}</p>
+          <p className="text-preset-4-bold text-grey-900 truncate max-w-[120px] md:max-w-none">
+            {name}
+          </p>
         </div>
       );
     },
@@ -41,10 +41,19 @@ export const columns: ColumnDef<Bill>[] = [
     },
     cell: ({ row }) => {
       const date = row.getValue("date") as string;
+
       return (
-        <div className="text-preset-5 text-grey-500">
-          {format(new Date(date), "dd MMM yyyy")}
-        </div>
+        <>
+          {/* Mobile format */}
+          <div className="text-preset-5 text-grey-500 block md:hidden">
+            {format(new Date(date), "dd/MM/yy")}
+          </div>
+
+          {/* Desktop format */}
+          <div className="text-preset-5 text-grey-500 hidden md:block">
+            {format(new Date(date), "dd MMM yyyy")}
+          </div>
+        </>
       );
     },
   },
@@ -56,6 +65,7 @@ export const columns: ColumnDef<Bill>[] = [
     enableSorting: true,
     cell: ({ row }) => {
       const amount = row.getValue("amount") as number;
+
       return (
         <div className="text-right text-preset-4-bold text-grey-900">
           £{Math.abs(amount).toFixed(2)}

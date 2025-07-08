@@ -22,27 +22,33 @@ const RecurringBillsPage = () => {
   }, 0);
 
   return (
-    <div className="p-6 grid grid-cols-[1fr_2fr] gap-6">
-      <div className="space-y-4">
-        {isLoading ? (
-          <>
-            <TotalBillsSkeleton />
-            <BillsSummarySkeleton />
-          </>
-        ) : (
-          <>
-            <TotalBillsCard total={recurringTotal} />
-            <SummaryContainer transactions={transactions} />
-          </>
-        )}
-      </div>
+    <div className="p-6 max-w-screen-xl mx-auto space-y-6">
+      <h1 className="text-preset-1">Recurring Bills</h1>
 
-      <div className="bg-white rounded-lg p-4">
-        {isLoading ? (
-          <BillsTableSkeleton />
-        ) : (
-          <BillsTable columns={columns} data={transactions} />
-        )}
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-6">
+        {/* Left column */}
+        <div className="space-y-4">
+          {isLoading ? (
+            <>
+              <TotalBillsSkeleton />
+              <BillsSummarySkeleton />
+            </>
+          ) : (
+            <>
+              <TotalBillsCard total={recurringTotal} />
+              <SummaryContainer transactions={transactions} />
+            </>
+          )}
+        </div>
+
+        {/* Right column */}
+        <div className="bg-white rounded-lg p-4">
+          {isLoading ? (
+            <BillsTableSkeleton />
+          ) : (
+            <BillsTable columns={columns} data={transactions} />
+          )}
+        </div>
       </div>
     </div>
   );

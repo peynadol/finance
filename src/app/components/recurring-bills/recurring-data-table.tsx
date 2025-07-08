@@ -1,5 +1,5 @@
 "use client";
-
+import { ArrowDownUp } from "lucide-react";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -61,58 +61,123 @@ export function BillsTable<TData, TValue>({
 
   return (
     <div className="">
-      <div className="flex items-center justify-between py-4">
-        <Input
-          placeholder="Search bill title..."
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
+      <div className="w-full mb-4">
+        {/* Mobile layout */}
+        <div className="flex md:hidden items-center gap-2 bg-[#F9F6F3] p-2 rounded-xl">
+          {/* Search Input */}
+          <Input
+            placeholder="Search bill title"
+            value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+            onChange={(event) =>
+              table.getColumn("name")?.setFilterValue(event.target.value)
+            }
+            className="flex-1 bg-white text-sm"
+          />
 
-        {/* Sort Options */}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline">
-              Sort by <ChevronDown className="ml-2 h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="start">
-            <DropdownMenuItem
-              onSelect={() => table.setSorting([{ id: "date", desc: false }])}
-            >
-              Soonest Due
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onSelect={() => table.setSorting([{ id: "date", desc: true }])}
-            >
-              Latest Due
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onSelect={() => table.setSorting([{ id: "name", desc: false }])}
-            >
-              A to Z
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onSelect={() => table.setSorting([{ id: "name", desc: true }])}
-            >
-              Z to A
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onSelect={() => table.setSorting([{ id: "amount", desc: true }])}
-            >
-              Highest
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onSelect={() => table.setSorting([{ id: "amount", desc: false }])}
-            >
-              Lowest
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+          {/* Sort Icon */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button size="icon" variant="ghost">
+                <ArrowDownUp className="w-5 h-5 text-grey-700" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem
+                onSelect={() => table.setSorting([{ id: "date", desc: false }])}
+              >
+                Soonest Due
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onSelect={() => table.setSorting([{ id: "date", desc: true }])}
+              >
+                Latest Due
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onSelect={() => table.setSorting([{ id: "name", desc: false }])}
+              >
+                A to Z
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onSelect={() => table.setSorting([{ id: "name", desc: true }])}
+              >
+                Z to A
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onSelect={() =>
+                  table.setSorting([{ id: "amount", desc: true }])
+                }
+              >
+                Highest
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onSelect={() =>
+                  table.setSorting([{ id: "amount", desc: false }])
+                }
+              >
+                Lowest
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+
+        {/* Desktop layout */}
+        <div className="hidden md:flex items-center justify-between py-4">
+          {/* Search input */}
+          <Input
+            placeholder="Search bill title..."
+            value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+            onChange={(event) =>
+              table.getColumn("name")?.setFilterValue(event.target.value)
+            }
+            className="max-w-sm"
+          />
+
+          {/* Sort dropdown */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline">
+                Sort by <ChevronDown className="ml-2 h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start">
+              <DropdownMenuItem
+                onSelect={() => table.setSorting([{ id: "date", desc: false }])}
+              >
+                Soonest Due
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onSelect={() => table.setSorting([{ id: "date", desc: true }])}
+              >
+                Latest Due
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onSelect={() => table.setSorting([{ id: "name", desc: false }])}
+              >
+                A to Z
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onSelect={() => table.setSorting([{ id: "name", desc: true }])}
+              >
+                Z to A
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onSelect={() =>
+                  table.setSorting([{ id: "amount", desc: true }])
+                }
+              >
+                Highest
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onSelect={() =>
+                  table.setSorting([{ id: "amount", desc: false }])
+                }
+              >
+                Lowest
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
-
       {/* Table */}
       <div className="rounded-md border">
         <Table>
