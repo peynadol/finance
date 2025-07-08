@@ -98,6 +98,11 @@ test("add new transaction", async ({ page }) => {
   // select transaction category
   const categorySelect = modal.getByLabel("Category");
   await expect(categorySelect).toBeVisible();
+  await expect(categorySelect).toBeEnabled();
+
+  // this test is flaky without this
+  await categorySelect.locator("option").all();
+
   await categorySelect.selectOption("Groceries");
 
   // select transaction type
