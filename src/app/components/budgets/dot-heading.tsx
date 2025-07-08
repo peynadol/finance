@@ -15,7 +15,6 @@ type DotHeadingProps = {
 };
 
 const DotHeading = ({ data, transactionCategories }: DotHeadingProps) => {
-  console.log("Transaction Categories from DotHeading:", transactionCategories);
   const { openModal } = useModalStore();
   const pathname = usePathname();
   if (!data) {
@@ -30,7 +29,6 @@ const DotHeading = ({ data, transactionCategories }: DotHeadingProps) => {
   const color = data.theme;
   const handleEdit = () => {
     if (isBudgetPage) {
-      console.log(transactionCategories);
       openModal("EDIT_BUDGET", {
         ...data,
         transactionCategories,

@@ -36,7 +36,6 @@ export function AddTransactionForm({
   });
   const [useManualCategory, setUseManualCategory] = useState(false);
   const handleFormSubmit = (data: AddTransactionSchema) => {
-    console.log("Transaction data submitted:", data);
     onSubmit(data);
   };
 

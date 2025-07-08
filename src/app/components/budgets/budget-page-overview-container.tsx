@@ -26,7 +26,6 @@ const BudgetPageOverviewContainer = ({
   latestTransactions,
   transactionCategories,
 }: BudgetPageOverviewContainerProps) => {
-  console.log("BudgetPageOverviewContainer:", transactionCategories);
   return (
     <div className="bg-white rounded p-8 space-y-4">
       <DotHeading data={budget} transactionCategories={transactionCategories} />

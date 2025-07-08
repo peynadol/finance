@@ -26,12 +26,8 @@ const PotOverviewContainer = ({
 
   // calculates total saved across all pots
   const totalSaved = enrichedPots.reduce((acc, pot) => acc + pot.totalSaved, 0);
-  console.log("All pot-related transactions:");
   pots.forEach((pot) => {
-    const related = transactions.filter(
-      (t) => t.category === pot.name && t.type === "expense"
-    );
-    console.log(pot.name, related.length, related);
+    transactions.filter((t) => t.category === pot.name && t.type === "expense");
   });
 
   return (

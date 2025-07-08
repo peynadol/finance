@@ -40,7 +40,6 @@ export function AddBudgetForm({
     Themes.find((t) => t.value === watch("theme"))?.color ?? "";
 
   const handleFormSubmit = (data: AddBudgetSchema) => {
-    console.log("Budget data submitted:", data);
     onSubmit(data);
   };
 

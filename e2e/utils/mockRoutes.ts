@@ -23,7 +23,6 @@ export async function mockPotsRoute(page: Page) {
 
 export async function mockBudgetsRoute(page: Page) {
   await page.route("**/rest/v1/budgets*", async (route) => {
-    console.log("📡 Mocking budgets route");
     await route.fulfill({
       status: 200,
       contentType: "application/json",

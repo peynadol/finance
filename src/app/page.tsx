@@ -34,7 +34,6 @@ export default function Home() {
   const recurringBills = transactions.filter(
     (transaction) => transaction.recurring && transaction.type === "expense"
   );
-  console.log("recurringBills", recurringBills);
 
   const summaryItems = [
     { id: "current", label: "Current Balance", amount: currentBalance },
