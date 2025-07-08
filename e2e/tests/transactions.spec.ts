@@ -1,8 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { mockTransactionRoute } from "../utils/mockRoutes";
 import { mockTransactions } from "../fixtures/mock-data";
-// TODO: Add test for creating a new transaction
-// TODO: Need to figure out how to mock POST requests for adding a new transaction
 
 test("transactions table displays correct data", async ({ page }) => {
   await mockTransactionRoute(page);

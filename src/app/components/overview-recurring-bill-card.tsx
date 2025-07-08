@@ -1,7 +1,7 @@
 type OverviewRecurringBillCardProps = {
   name: string;
   amount: number;
-  colour: string; // e.g. "bg-red-500"
+  colour: string;
 };
 
 const OverviewRecurringBillCard = ({

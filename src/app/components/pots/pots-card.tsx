@@ -1,5 +1,4 @@
 import DotHeading from "../budgets/dot-heading";
-import PotButtonContainer from "./pot-button-container";
 import PotsCardProgress from "./pots-card-progress";
 import { Pot } from "@/lib/types";
 

@@ -28,7 +28,7 @@ export function AddTransactionForm({
     defaultValues: {
       name: "",
       amount: 0,
-      type: "expense", // Default to expense
+      type: "expense", 
       category: "",
       date: "",
       recurring: false,
