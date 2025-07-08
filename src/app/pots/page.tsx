@@ -31,7 +31,7 @@ const PotsPage = () => {
         </AppButton>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {isLoading
           ? [1, 2, 3].map((i) => <PotsCardSkeleton key={i} />)
           : pots.map((pot) => (
