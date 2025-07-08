@@ -4,9 +4,6 @@ import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 import { Transaction } from "@/lib/types";
 
-//TODO: maybe add a check mark to the dropdown category filter to indicate the selected category
-// category needs to be inferred from the transaction type
-
 export const columns: ColumnDef<Transaction>[] = [
   {
     id: "recipient",
@@ -21,7 +18,9 @@ export const columns: ColumnDef<Transaction>[] = [
 
       return (
         <div className="flex items-center">
-          <p className="text-preset-4-bold text-grey-900">{name}</p>
+          <p className="text-preset-4-bold text-grey-900 truncate max-w-[100px] md:max-w-none">
+            {name}
+          </p>
         </div>
       );
     },
@@ -31,13 +30,15 @@ export const columns: ColumnDef<Transaction>[] = [
   {
     accessorKey: "category",
     header: () => (
-      <div className="text-left text-preset-5 text-grey-500">Category</div>
+      <div className="text-left text-preset-5 text-grey-500 hidden md:block">
+        Category
+      </div>
     ),
     enableSorting: true,
     cell: ({ row }) => {
       const category: string = row.getValue("category");
       return (
-        <div className="text-preset-5 text-grey-500">
+        <div className="text-preset-5 text-grey-500 hidden md:block">
           {category.charAt(0).toUpperCase() + category.slice(1)}
         </div>
       );
@@ -57,9 +58,17 @@ export const columns: ColumnDef<Transaction>[] = [
     cell: ({ row }) => {
       const date: string = row.getValue("date");
       return (
-        <div className="text-preset-5 text-grey-500">
-          {format(new Date(date), "dd MMM yyyy")}
-        </div>
+        <>
+          {/* mobile - shorter date */}
+          <div className="text-preset-5 text-grey-500 text-xs block md:hidden">
+            {format(new Date(date), "dd/MM/yy")}
+          </div>
+
+          {/* desktop - full date */}
+          <div className="text-preset-5 text-grey-500 hidden md:block">
+            {format(new Date(date), "dd MMM yyyy")}
+          </div>
+        </>
       );
     },
   },
