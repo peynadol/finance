@@ -28,7 +28,7 @@ You can use it to:
 
 ## Live Demo
 
-[Check it out on Vercel](https://finance-h78h-2a4yj0doq-liams-projects-d672842b.vercel.app/)
+[Check it out on Vercel](https://github.com/peynadol/finance)
 
 ---
 
