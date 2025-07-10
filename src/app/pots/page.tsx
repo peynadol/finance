@@ -4,7 +4,7 @@ import { useGetPots, useGetTransactions } from "@/lib/queries/queries";
 import { useModalStore } from "@/lib/stores/modalStore";
 import { PotsCardSkeleton } from "../components/skeletons/pots-card-skeleton";
 import SortablePotCard from "../components/pots/sortable-pot-card";
-import { DndContext } from "@dnd-kit/core";
+import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import { rectSortingStrategy, SortableContext } from "@dnd-kit/sortable";
 import { arrayMove } from "@dnd-kit/sortable"; // optional, or use a separate helper
 import { useState, useEffect } from "react";
@@ -17,7 +17,7 @@ const PotsPage = () => {
     if (potsData.length > 0) {
       setPots(potsData);
     }
-  }, [potsData.length]); // linting issue here
+  }, [potsData.length]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const { data: transactions = [], isLoading: isTransactionsLoading } =
     useGetTransactions();
@@ -33,7 +33,7 @@ const PotsPage = () => {
     return { ...acc, [pot.id]: total };
   }, {});
 
-  const handleDragEnd = (event: any) => {
+  const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
     if (!over || active.id === over.id) return;
 
